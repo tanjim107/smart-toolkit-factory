@@ -8,6 +8,20 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
+import PercentageCalculator from "@/tools/PercentageCalculator";
+import GSTCalculator from "@/tools/GSTCalculator";
+import EMICalculator from "@/tools/EMICalculator";
+import AgeCalculator from "@/tools/AgeCalculator";
+import DateDifferenceCalculator from "@/tools/DateDifferenceCalculator";
+import ProfitLossCalculator from "@/tools/ProfitLossCalculator";
+import AreaCalculator from "@/tools/AreaCalculator";
+import EcommerceProfitCalculator from "@/tools/EcommerceProfitCalculator";
+import GmailGenerator from "@/tools/GmailGenerator";
+import QRCodeGenerator from "@/tools/QRCodeGenerator";
+import PasswordGenerator from "@/tools/PasswordGenerator";
+import ImageConverter from "@/tools/ImageConverter";
+import ImageCompressor from "@/tools/ImageCompressor";
+import WordCounter from "@/tools/WordCounter";
 
 const ToolPage: React.FC = () => {
   const { toolId } = useParams<{ toolId: string }>();
@@ -43,6 +57,48 @@ const ToolPage: React.FC = () => {
     );
   }
 
+  // Render different tool components based on the tool ID
+  const renderToolContent = () => {
+    switch (tool.id) {
+      case "percentage-calculator":
+        return <PercentageCalculator />;
+      case "gst-calculator":
+        return <GSTCalculator />;
+      case "emi-calculator":
+        return <EMICalculator />;
+      case "age-calculator":
+        return <AgeCalculator />;
+      case "date-difference":
+        return <DateDifferenceCalculator />;
+      case "profit-loss":
+        return <ProfitLossCalculator />;
+      case "area-calculator":
+        return <AreaCalculator />;
+      case "ecommerce-profit":
+        return <EcommerceProfitCalculator />;
+      case "gmail-generator":
+        return <GmailGenerator />;
+      case "qr-code-generator":
+        return <QRCodeGenerator />;
+      case "password-generator":
+        return <PasswordGenerator />;
+      case "image-converter":
+        return <ImageConverter />;
+      case "image-compressor":
+        return <ImageCompressor />;
+      case "word-counter":
+        return <WordCounter />;
+      default:
+        return (
+          <div className="flex items-center justify-center p-12">
+            <p className="text-center">
+              This tool is currently under development.
+            </p>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="container mx-auto py-8 max-w-4xl">
       <motion.div
@@ -67,11 +123,7 @@ const ToolPage: React.FC = () => {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="glass-darker p-6 rounded-xl shadow-glass border border-border/10"
       >
-        <div className="flex items-center justify-center p-12">
-          <p className="text-center">
-            This is a placeholder for the {tool.name} tool. Implement the specific tool functionality here.
-          </p>
-        </div>
+        {renderToolContent()}
       </motion.div>
     </div>
   );
