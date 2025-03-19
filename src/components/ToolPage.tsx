@@ -1,15 +1,18 @@
 
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getToolById } from "@/data/tools";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "./ui/button";
 
 const ToolPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const tool = getToolById(id || "");
+  const { toolId } = useParams<{ toolId: string }>();
+  const navigate = useNavigate();
+  const tool = getToolById(toolId || "");
   const { toast } = useToast();
 
   // If tool not found, show message
@@ -23,12 +26,18 @@ const ToolPage: React.FC = () => {
     }, [toast]);
 
     return (
-      <div className="flex items-center justify-center h-[50vh]">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Tool Not Found</h1>
-          <p className="text-muted-foreground">
-            The requested tool could not be found.
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="text-center max-w-md">
+          <h1 className="text-9xl font-bold text-primary/20">404</h1>
+          <h2 className="text-2xl font-bold mt-6 mb-3">Page not found</h2>
+          <p className="text-muted-foreground mb-8">
+            The page you are looking for doesn't exist or has been moved.
           </p>
+          
+          <Button onClick={() => navigate("/")} className="flex items-center gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to homepage</span>
+          </Button>
         </div>
       </div>
     );

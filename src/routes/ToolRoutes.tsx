@@ -9,21 +9,8 @@ const ToolRoutes = () => {
       {/* Implement the Calculator as a full page */}
       <Route path="/calculator" element={<Calculator />} />
       
-      {/* For all other tools, use the dynamic ToolPage */}
-      <Route path="/percentage-calculator" element={<ToolPage />} />
-      <Route path="/gst-calculator" element={<ToolPage />} />
-      <Route path="/emi-calculator" element={<ToolPage />} />
-      <Route path="/age-calculator" element={<ToolPage />} />
-      <Route path="/date-difference" element={<ToolPage />} />
-      <Route path="/profit-loss" element={<ToolPage />} />
-      <Route path="/area-calculator" element={<ToolPage />} />
-      <Route path="/ecommerce-profit" element={<ToolPage />} />
-      <Route path="/gmail-generator" element={<ToolPage />} />
-      <Route path="/qr-code-generator" element={<ToolPage />} />
-      <Route path="/password-generator" element={<ToolPage />} />
-      <Route path="/image-converter" element={<ToolPage />} />
-      <Route path="/image-compressor" element={<ToolPage />} />
-      <Route path="/word-counter" element={<ToolPage />} />
+      {/* For all other tools, use the dynamic ToolPage with the correct route parameter */}
+      <Route path="/:toolId" element={<ToolPage />} />
     </Routes>
   );
 };
