@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
+
+// Import all tool components
 import PercentageCalculator from "@/tools/PercentageCalculator";
 import GSTCalculator from "@/tools/GSTCalculator";
 import EMICalculator from "@/tools/EMICalculator";
@@ -22,6 +24,7 @@ import PasswordGenerator from "@/tools/PasswordGenerator";
 import ImageConverter from "@/tools/ImageConverter";
 import ImageCompressor from "@/tools/ImageCompressor";
 import WordCounter from "@/tools/WordCounter";
+import Calculator from "@/pages/Calculator";
 
 const ToolPage: React.FC = () => {
   const { toolId } = useParams<{ toolId: string }>();
@@ -60,6 +63,8 @@ const ToolPage: React.FC = () => {
   // Render different tool components based on the tool ID
   const renderToolContent = () => {
     switch (tool.id) {
+      case "calculator":
+        return <Calculator />;
       case "percentage-calculator":
         return <PercentageCalculator />;
       case "gst-calculator":
