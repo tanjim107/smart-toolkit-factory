@@ -1,15 +1,16 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download } from "lucide-react";
+import { Download, QrCode, RefreshCw } from "lucide-react";
 
 const QRCodeGenerator = () => {
   const { toast } = useToast();
+  const qrImageRef = useRef<HTMLImageElement>(null);
   
   const [qrContent, setQrContent] = useState<string>("");
   const [qrType, setQrType] = useState<string>("text");
@@ -19,8 +20,9 @@ const QRCodeGenerator = () => {
   
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
-  // Generate QR code using Google Chart API
+  // Fix: Use a more reliable QR code generation service
   const generateQRCode = () => {
     if (!qrContent) {
       toast({
@@ -32,6 +34,7 @@ const QRCodeGenerator = () => {
     }
     
     setIsGenerating(true);
+    setImageLoaded(false);
     
     // Prepare content based on type
     let finalContent = qrContent;
@@ -47,14 +50,32 @@ const QRCodeGenerator = () => {
     // Encode content for URL
     const encodedContent = encodeURIComponent(finalContent);
     
-    // Google Chart API for QR code generation
-    const apiUrl = `https://chart.googleapis.com/chart?cht=qr&chs=${qrSize}x${qrSize}&chl=${encodedContent}&chco=${qrColor.substring(1)}&chf=bg,s,${bgColor.substring(1)}`;
+    // Use QR Server API for more reliable QR code generation
+    const cleanQrColor = qrColor.replace('#', '');
+    const cleanBgColor = bgColor.replace('#', '');
+    const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodedContent}&color=${cleanQrColor}&bgcolor=${cleanBgColor}&margin=10`;
     
     setQrCodeUrl(apiUrl);
     setIsGenerating(false);
   };
 
-  // Generate QR code when component mounts with default values
+  // Handle image loading error
+  const handleImageError = () => {
+    toast({
+      title: "Error",
+      description: "Failed to generate QR code. Please try again.",
+      variant: "destructive",
+    });
+    setIsGenerating(false);
+  };
+
+  // Handle image loaded successfully
+  const handleImageLoaded = () => {
+    setImageLoaded(true);
+    setIsGenerating(false);
+  };
+
+  // Generate QR code when parameters change
   useEffect(() => {
     if (qrContent) {
       generateQRCode();
@@ -66,12 +87,35 @@ const QRCodeGenerator = () => {
     setQrContent(value);
   };
 
-  // Handle QR code download
+  // Handle QR code download - Fix for download functionality
   const downloadQRCode = () => {
-    if (!qrCodeUrl) return;
+    if (!qrCodeUrl || !imageLoaded || !qrImageRef.current) {
+      toast({
+        title: "Error",
+        description: "QR code is not ready yet. Please wait or regenerate.",
+        variant: "destructive",
+      });
+      return;
+    }
     
+    // Create a canvas element to draw the image
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    
+    // Set canvas size to match the QR code
+    canvas.width = qrImageRef.current.naturalWidth;
+    canvas.height = qrImageRef.current.naturalHeight;
+    
+    // Draw the image on the canvas
+    ctx.drawImage(qrImageRef.current, 0, 0);
+    
+    // Convert the canvas to a data URL
+    const dataUrl = canvas.toDataURL("image/png");
+    
+    // Create a link element and trigger download
     const a = document.createElement("a");
-    a.href = qrCodeUrl;
+    a.href = dataUrl;
     a.download = `qrcode-${Date.now()}.png`;
     document.body.appendChild(a);
     a.click();
@@ -79,7 +123,7 @@ const QRCodeGenerator = () => {
     
     toast({
       title: "Downloaded!",
-      description: "QR code has been downloaded",
+      description: "QR code has been downloaded successfully",
     });
   };
 
@@ -192,9 +236,10 @@ const QRCodeGenerator = () => {
           
           <Button 
             onClick={generateQRCode} 
-            className="w-full"
+            className="w-full bg-fuchsia-500 hover:bg-fuchsia-600 gap-2"
             disabled={!qrContent || isGenerating}
           >
+            <QrCode className="w-4 h-4" />
             Generate QR Code
           </Button>
         </div>
@@ -206,21 +251,42 @@ const QRCodeGenerator = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="space-y-4 text-center"
             >
-              <div className="p-4 bg-white rounded-md inline-block">
-                <img
-                  src={qrCodeUrl}
-                  alt="Generated QR Code"
-                  className="max-w-full h-auto"
-                />
+              <div className="p-4 bg-white rounded-md inline-block shadow-md border border-fuchsia-100/20">
+                {isGenerating ? (
+                  <div className="flex items-center justify-center h-[200px] w-[200px]">
+                    <RefreshCw className="w-8 h-8 text-fuchsia-400 animate-spin" />
+                  </div>
+                ) : (
+                  <img
+                    ref={qrImageRef}
+                    src={qrCodeUrl}
+                    alt="Generated QR Code"
+                    className="max-w-full h-auto"
+                    style={{ display: imageLoaded ? 'block' : 'none' }}
+                    onLoad={handleImageLoaded}
+                    onError={handleImageError}
+                  />
+                )}
+                {!imageLoaded && !isGenerating && (
+                  <div className="flex items-center justify-center h-[200px] w-[200px]">
+                    <RefreshCw className="w-8 h-8 text-fuchsia-400 animate-spin" />
+                  </div>
+                )}
               </div>
               
               <Button 
                 onClick={downloadQRCode}
-                className="gap-2"
+                className="gap-2 bg-fuchsia-500 hover:bg-fuchsia-600"
+                disabled={!imageLoaded || isGenerating}
               >
                 <Download className="w-4 h-4" />
                 <span>Download QR Code</span>
               </Button>
+
+              <div className="text-xs text-muted-foreground mt-2">
+                {qrType === 'text' ? 'Text' : qrType === 'url' ? 'URL' : qrType === 'email' ? 'Email' : 'Phone'}: 
+                <span className="font-mono ml-1">{qrContent}</span>
+              </div>
             </motion.div>
           ) : (
             <div className="text-center text-muted-foreground p-8 border border-dashed border-border rounded-md">
