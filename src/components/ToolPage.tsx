@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
+import SEOHead from "./SEOHead";
+import UsageInstructions from "./UsageInstructions";
 
 // Import all tool components
 import PercentageCalculator from "@/tools/PercentageCalculator";
@@ -105,32 +107,46 @@ const ToolPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto py-8 max-w-4xl">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="mb-6"
-      >
-        <div className="flex items-center gap-3 mb-2">
-          <div className={cn("p-2 rounded-md", tool.color)}>
-            <tool.icon className="w-5 h-5" />
+    <>
+      {/* SEO Head Component */}
+      <SEOHead tool={tool} />
+      
+      <div className="container mx-auto py-8 max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-6"
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div className={cn("p-2 rounded-md", tool.color)}>
+              <tool.icon className="w-5 h-5" />
+            </div>
+            <h1 className="text-2xl font-bold">{tool.name}</h1>
           </div>
-          <h1 className="text-2xl font-bold">{tool.name}</h1>
-        </div>
-        <p className="text-muted-foreground">{tool.description}</p>
-        <Separator className="mt-4" />
-      </motion.div>
+          <p className="text-muted-foreground">{tool.description}</p>
+          <Separator className="mt-4" />
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-        className="glass-darker p-6 rounded-xl shadow-glass border border-border/10"
-      >
-        {renderToolContent()}
-      </motion.div>
-    </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="glass-darker p-6 rounded-xl shadow-glass border border-border/10"
+        >
+          {renderToolContent()}
+        </motion.div>
+
+        {/* Usage Instructions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <UsageInstructions tool={tool} />
+        </motion.div>
+      </div>
+    </>
   );
 };
 
