@@ -30,17 +30,17 @@ const Index = () => {
   };
 
   return (
-    <div className="space-y-8 max-w-screen-2xl mx-auto">
-      <section className="text-center space-y-4 py-6">
+    <div className="space-y-6 sm:space-y-8 w-full">
+      <section className="text-center space-y-4 py-4 sm:py-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h1 className="text-4xl font-bold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
             Smart<span className="text-primary">Toolkit</span>
           </h1>
-          <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground mt-2 max-w-2xl mx-auto px-4">
             A collection of beautifully designed tools to simplify your daily tasks
           </p>
         </motion.div>
@@ -48,7 +48,7 @@ const Index = () => {
 
       <motion.div
         ref={containerRef}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4"
         variants={parentVariants}
         initial="hidden"
         animate="visible"

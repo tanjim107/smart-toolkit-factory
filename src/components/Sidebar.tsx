@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
           "border-r border-border/50 flex flex-col",
           "transition-all duration-300 ease-out",
           isSidebarOpen ? "translate-x-0 shadow-glass-lg" : "-translate-x-full",
-          isMobile ? "w-64" : "w-64"
+          "w-64 max-w-[85vw] sm:w-64"
         )}
       >
         <div className="flex items-center justify-between p-4 border-b border-border/50">

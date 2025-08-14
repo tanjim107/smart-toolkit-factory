@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-radial from-blue-50 to-slate-50 overflow-hidden">
+    <div className="min-h-screen flex bg-gradient-radial from-blue-50 to-slate-50">
       <Sidebar 
         isSidebarOpen={isSidebarOpen} 
         toggleSidebar={toggleSidebar} 
@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           toggleSidebar={toggleSidebar} 
         />
         
-        <div className="container mx-auto px-4 pt-16 pb-8">
+        <div className="w-full h-full px-4 sm:px-6 lg:px-8 pt-16 pb-8 max-w-7xl mx-auto">
           {children}
         </div>
       </main>
