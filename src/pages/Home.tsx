@@ -55,8 +55,10 @@ const Home = () => {
                 এখনই শুরু করুন
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-              সব টুলস দেখুন
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6" asChild>
+              <Link to="/tools">
+                সব টুলস দেখুন
+              </Link>
             </Button>
           </div>
         </motion.div>
@@ -166,8 +168,10 @@ const Home = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="px-8 py-6">
-              সব টুলস দেখুন
+            <Button variant="outline" size="lg" className="px-8 py-6" asChild>
+              <Link to="/tools">
+                সব টুলস দেখুন
+              </Link>
             </Button>
           </div>
         </div>
