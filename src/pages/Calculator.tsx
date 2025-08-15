@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { tools } from "@/data/tools";
 import { motion } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
+import UsageInstructions from "@/components/UsageInstructions";
+import Advertisement from "@/components/Advertisement";
 
 const calculator = tools.find(tool => tool.id === "calculator")!;
 
@@ -119,7 +122,10 @@ const Calculator = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <>
+      <SEOHead tool={calculator} />
+      <div className="max-w-4xl mx-auto">
+        <Advertisement position="top" className="mb-6" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -135,12 +141,13 @@ const Calculator = () => {
         <p className="text-muted-foreground">{calculator.description}</p>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-      >
-        <Card className="glass-darker overflow-hidden border-none">
+      <div className="max-w-md mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <Card className="glass-darker overflow-hidden border-none">
           <div className="p-4 space-y-4">
             <div className="bg-background/50 rounded-lg border border-border/50 p-4 h-24 flex flex-col items-end justify-end">
               <div className="text-sm text-muted-foreground overflow-x-auto whitespace-nowrap w-full text-right mb-1">
@@ -179,8 +186,22 @@ const Calculator = () => {
             </div>
           </div>
         </Card>
+        </motion.div>
+      </div>
+
+      <Advertisement position="middle" className="my-6" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
+        <UsageInstructions tool={calculator} />
       </motion.div>
+
+      <Advertisement position="bottom" className="mt-6" />
     </div>
+    </>
   );
 };
 

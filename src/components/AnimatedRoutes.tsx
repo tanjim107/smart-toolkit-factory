@@ -1,6 +1,7 @@
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import Home from "@/pages/Home";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 import ToolRoutes from "@/routes/ToolRoutes";
@@ -11,7 +12,8 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/tools" element={<Index />} />
         {/* Include all tool routes */}
         <Route path="/*" element={<ToolRoutes />} />
         <Route path="*" element={<NotFound />} />

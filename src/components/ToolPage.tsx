@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
 import SEOHead from "./SEOHead";
 import UsageInstructions from "./UsageInstructions";
+import Advertisement from "./Advertisement";
 
 // Import all tool components
 import PercentageCalculator from "@/tools/PercentageCalculator";
@@ -112,6 +113,7 @@ const ToolPage: React.FC = () => {
       <SEOHead tool={tool} />
       
       <div className="container mx-auto py-8 max-w-4xl">
+        <Advertisement position="top" className="mb-6" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -137,6 +139,8 @@ const ToolPage: React.FC = () => {
           {renderToolContent()}
         </motion.div>
 
+        <Advertisement position="middle" className="my-6" />
+
         {/* Usage Instructions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -145,6 +149,8 @@ const ToolPage: React.FC = () => {
         >
           <UsageInstructions tool={tool} />
         </motion.div>
+
+        <Advertisement position="bottom" className="mt-6" />
       </div>
     </>
   );
