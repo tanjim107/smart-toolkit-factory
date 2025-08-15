@@ -71,6 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
               <Link
                 key={tool.id}
                 to={tool.path}
+                onClick={toggleSidebar}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-md text-sm",
                   "transition-colors duration-200",
