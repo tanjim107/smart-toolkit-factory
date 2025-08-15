@@ -16,8 +16,8 @@ import Advertisement from "./Advertisement";
 import PercentageCalculator from "@/tools/PercentageCalculator";
 import GSTCalculator from "@/tools/GSTCalculator";
 import EMICalculator from "@/tools/EMICalculator";
-import AgeCalculator from "@/tools/AgeCalculator";
-import DateDifferenceCalculator from "@/tools/DateDifferenceCalculator";
+import ImprovedAgeCalculator from "@/tools/ImprovedAgeCalculator";
+import ImprovedDateDifferenceCalculator from "@/tools/ImprovedDateDifferenceCalculator";
 import ProfitLossCalculator from "@/tools/ProfitLossCalculator";
 import AreaCalculator from "@/tools/AreaCalculator";
 import EcommerceProfitCalculator from "@/tools/EcommerceProfitCalculator";
@@ -75,9 +75,9 @@ const ToolPage: React.FC = () => {
       case "emi-calculator":
         return <EMICalculator />;
       case "age-calculator":
-        return <AgeCalculator />;
+        return <ImprovedAgeCalculator />;
       case "date-difference":
-        return <DateDifferenceCalculator />;
+        return <ImprovedDateDifferenceCalculator />;
       case "profit-loss":
         return <ProfitLossCalculator />;
       case "area-calculator":

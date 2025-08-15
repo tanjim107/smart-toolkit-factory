@@ -88,8 +88,8 @@ const QRCodeGenerator = () => {
   };
 
   // Handle QR code download - Fix for download functionality
-  const downloadQRCode = () => {
-    if (!qrCodeUrl || !imageLoaded || !qrImageRef.current) {
+  const downloadQRCode = async () => {
+    if (!qrCodeUrl || !imageLoaded) {
       toast({
         title: "Error",
         description: "QR code is not ready yet. Please wait or regenerate.",
@@ -97,34 +97,38 @@ const QRCodeGenerator = () => {
       });
       return;
     }
-    
-    // Create a canvas element to draw the image
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    
-    // Set canvas size to match the QR code
-    canvas.width = qrImageRef.current.naturalWidth;
-    canvas.height = qrImageRef.current.naturalHeight;
-    
-    // Draw the image on the canvas
-    ctx.drawImage(qrImageRef.current, 0, 0);
-    
-    // Convert the canvas to a data URL
-    const dataUrl = canvas.toDataURL("image/png");
-    
-    // Create a link element and trigger download
-    const a = document.createElement("a");
-    a.href = dataUrl;
-    a.download = `qrcode-${Date.now()}.png`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    toast({
-      title: "Downloaded!",
-      description: "QR code has been downloaded successfully",
-    });
+
+    try {
+      // Fetch the image directly from the URL
+      const response = await fetch(qrCodeUrl);
+      const blob = await response.blob();
+      
+      // Create a download URL
+      const downloadUrl = window.URL.createObjectURL(blob);
+      
+      // Create a link element and trigger download
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = `qrcode-${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      // Clean up the URL object
+      window.URL.revokeObjectURL(downloadUrl);
+      
+      toast({
+        title: "Downloaded!",
+        description: "QR code has been downloaded successfully",
+      });
+    } catch (error) {
+      console.error("Download error:", error);
+      toast({
+        title: "Download Error",
+        description: "Failed to download QR code. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
