@@ -4,17 +4,41 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface AdvertisementProps {
+interface AdSpaceProps {
   position: "top" | "middle" | "bottom" | "sidebar";
   className?: string;
+  adCode?: string; // For AdSense/Adsterra code injection
+  customContent?: {
+    title: string;
+    description: string;
+    cta: string;
+    link?: string;
+    bgColor?: string;
+    textColor?: string;
+  };
 }
 
-const Advertisement: React.FC<AdvertisementProps> = ({ position, className }) => {
+const AdSpace: React.FC<AdSpaceProps> = ({ 
+  position, 
+  className, 
+  adCode, 
+  customContent 
+}) => {
   const [isVisible, setIsVisible] = React.useState(true);
 
   if (!isVisible) return null;
 
-  const getAdContent = () => {
+  // If ad code is provided, render it directly
+  if (adCode) {
+    return (
+      <div 
+        className={cn("relative", className)}
+        dangerouslySetInnerHTML={{ __html: adCode }}
+      />
+    );
+  }
+
+  const getDefaultAdContent = () => {
     switch (position) {
       case "top":
         return {
@@ -59,7 +83,7 @@ const Advertisement: React.FC<AdvertisementProps> = ({ position, className }) =>
     }
   };
 
-  const adContent = getAdContent();
+  const adContent = customContent || getDefaultAdContent();
 
   return (
     <div className={cn("relative", className)}>
@@ -90,6 +114,7 @@ const Advertisement: React.FC<AdvertisementProps> = ({ position, className }) =>
               variant="default" 
               size="sm"
               className="shrink-0 gap-2"
+              onClick={() => 'link' in adContent && adContent.link && window.open(adContent.link, '_blank')}
             >
               {adContent.cta}
               <ExternalLink className="h-4 w-4" />
@@ -106,4 +131,4 @@ const Advertisement: React.FC<AdvertisementProps> = ({ position, className }) =>
   );
 };
 
-export default Advertisement;
+export default AdSpace;

@@ -18,27 +18,38 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
     }> = {
       "calculator": {
         steps: [
-          "ক্যালকুলেটর স্ক্রিনে সংখ্যা এবং অপারেটর (+, -, ×, ÷) ক্লিক করুন",
-          "গণনা সম্পূর্ণ করতে = বাটন চাপুন",
-          "পরবর্তী গণনার জন্য C বাটন দিয়ে ক্লিয়ার করুন",
-          "দশমিক সংখ্যার জন্য . (ডট) ব্যবহার করুন"
+          "Click numbers and operators (+, -, ×, ÷) on the calculator screen",
+          "Press = button to complete calculation",
+          "Use C button to clear for next calculation",
+          "Use . (dot) for decimal numbers",
+          "Use scientific functions: sin, cos, tan, ln, log, √, x², x!, π, e",
+          "Toggle DEG/RAD for angle mode and INV for inverse functions"
         ],
         tips: [
-          "কীবোর্ড শর্টকাট ব্যবহার করুন দ্রুত গণনার জন্য",
-          "বড় সংখ্যার জন্য কমা স্বয়ংক্রিয়ভাবে যোগ হবে",
-          "ভুল হলে Backspace বা C বাটন ব্যবহার করুন"
+          "Use keyboard shortcuts for faster calculations",
+          "Switch between DEG and RAD modes for trigonometric functions",
+          "Use INV button to access inverse trigonometric functions",
+          "Use parentheses for complex expressions",
+          "π and e constants are available for mathematical calculations"
         ],
         features: [
-          "বেসিক অ্যারিথমেটিক অপারেশন",
-          "দশমিক গণনা সাপোর্ট",
-          "কীবোর্ড সাপোর্ট",
-          "রেসপন্সিভ ডিজাইন"
+          "Basic arithmetic operations",
+          "Scientific functions (sin, cos, tan, log, ln)",
+          "Square root and power functions",
+          "Factorial calculation",
+          "Constants (π, e)",
+          "Degree/Radian mode",
+          "Inverse functions",
+          "Decimal calculation support",
+          "Responsive design"
         ],
         benefits: [
-          "দ্রুত এবং নির্ভুল গণনা",
-          "কোন ইনস্টলেশন প্রয়োজন নেই",
-          "সব ডিভাইসে কাজ করে",
-          "বিনামূল্যে ব্যবহার"
+          "Fast and accurate calculations",
+          "No installation required",
+          "Works on all devices",
+          "Free to use",
+          "Scientific calculator capabilities",
+          "Perfect for students and professionals"
         ]
       },
       "percentage-calculator": {
@@ -406,10 +417,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
     };
     
     return instructionsMap[toolId] || {
-      steps: ["টুল ব্যবহার করুন"],
-      tips: ["সঠিক তথ্য ইনপুট করুন"],
-      features: ["বেসিক ফিচার"],
-      benefits: ["সময় সাশ্রয়"]
+      steps: ["Use the tool"],
+      tips: ["Enter correct information"],
+      features: ["Basic features"],
+      benefits: ["Time saving"]
     };
   };
 
@@ -420,10 +431,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
       <div className="text-center">
         <h2 className="text-2xl font-bold mb-2 flex items-center justify-center gap-2">
           <Info className="w-6 h-6 text-primary" />
-          কিভাবে ব্যবহার করবেন
+          How to Use
         </h2>
         <p className="text-muted-foreground">
-          {tool.name} টুলটি সর্বোচ্চ সুবিধা পেতে নিচের গাইড অনুসরণ করুন
+          Follow the guide below to get maximum benefits from {tool.name} tool
         </p>
       </div>
 
@@ -432,10 +443,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              ব্যবহারের ধাপ
+              Usage Steps
             </CardTitle>
             <CardDescription>
-              ধাপে ধাপে গাইড অনুসরণ করুন
+              Follow the step-by-step guide
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -453,10 +464,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Star className="w-5 h-5 text-yellow-500" />
-              প্রো টিপস
+              Pro Tips
             </CardTitle>
             <CardDescription>
-              আরও ভালো ফলাফলের জন্য
+              For better results
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -475,10 +486,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Star className="w-5 h-5 text-blue-500" />
-              মূল ফিচারসমূহ
+              Key Features
             </CardTitle>
             <CardDescription>
-              এই টুলের বিশেষ সুবিধা
+              Special benefits of this tool
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -496,10 +507,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="w-5 h-5 text-purple-500" />
-              সুবিধাসমূহ
+              Benefits
             </CardTitle>
             <CardDescription>
-              কেন এই টুল ব্যবহার করবেন
+              Why use this tool
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -518,10 +529,10 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
       <Card className="bg-primary/5 border-primary/20">
         <CardContent className="pt-6">
           <div className="text-center">
-            <h3 className="font-semibold mb-2">💡 সাহায্য দরকার?</h3>
+            <h3 className="font-semibold mb-2">💡 Need Help?</h3>
             <p className="text-sm text-muted-foreground">
-              এই টুল সম্পর্কে কোন প্রশ্ন থাকলে বা সমস্যা হলে আমাদের সাথে যোগাযোগ করুন। 
-              আমরা ২৪/৭ সাপোর্ট প্রদান করি।
+              If you have any questions about this tool or face any issues, contact us. 
+              We provide 24/7 support.
             </p>
           </div>
         </CardContent>
