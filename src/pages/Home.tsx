@@ -31,33 +31,33 @@ const Home = () => {
           </div>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            বিনামূল্যে অনলাইন ক্যালকুলেটর এবং ইউটিলিটি টুলস। দ্রুত, সঠিক এবং সহজেই ব্যবহারযোগ্য।
+            Free online calculator and utility tools. Fast, accurate and easy to use.
           </p>
           
           <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
             <Badge variant="secondary" className="px-4 py-2">
               <Star className="h-4 w-4 mr-2" />
-              ১৫+ প্রো টুলস
+              15+ Pro Tools
             </Badge>
             <Badge variant="secondary" className="px-4 py-2">
               <Users className="h-4 w-4 mr-2" />
-              ১০,০০০+ ব্যবহারকারী
+              10,000+ Users
             </Badge>
             <Badge variant="secondary" className="px-4 py-2">
               <TrendingUp className="h-4 w-4 mr-2" />
-              ৯৯.৯% আপটাইম
+              99.9% Uptime
             </Badge>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="text-lg px-8 py-6">
               <Link to="/calculator">
-                এখনই শুরু করুন
+                Get Started Now
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="text-lg px-8 py-6" asChild>
               <Link to="/tools">
-                সব টুলস দেখুন
+                View All Tools
               </Link>
             </Button>
           </div>
@@ -79,9 +79,9 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">জনপ্রিয় টুলস</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Popular Tools</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              আমাদের সবচেয়ে জনপ্রিয় এবং ব্যবহারকারী-বান্ধব টুলসগুলি আবিষ্কার করুন
+              Discover our most popular and user-friendly tools
             </p>
           </motion.div>
           
@@ -114,25 +114,25 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-12">কেন SmartToolkit বেছে নেবেন?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12">Why Choose SmartToolkit?</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="p-6 text-center">
-                <div className="text-4xl font-bold text-primary mb-2">১৫+</div>
-                <h3 className="text-xl font-semibold mb-2">পেশাদার টুলস</h3>
-                <p className="text-muted-foreground">ক্যালকুলেটর থেকে ইমেজ কনভার্টার - সব এক জায়গায়</p>
+                <div className="text-4xl font-bold text-primary mb-2">15+</div>
+                <h3 className="text-xl font-semibold mb-2">Professional Tools</h3>
+                <p className="text-muted-foreground">From calculator to image converter - all in one place</p>
               </Card>
               
               <Card className="p-6 text-center">
-                <div className="text-4xl font-bold text-primary mb-2">১০০%</div>
-                <h3 className="text-xl font-semibold mb-2">বিনামূল্যে</h3>
-                <p className="text-muted-foreground">কোনো রেজিস্ট্রেশন বা পেমেন্ট প্রয়োজন নেই</p>
+                <div className="text-4xl font-bold text-primary mb-2">100%</div>
+                <h3 className="text-xl font-semibold mb-2">Free</h3>
+                <p className="text-muted-foreground">No registration or payment required</p>
               </Card>
               
               <Card className="p-6 text-center">
-                <div className="text-4xl font-bold text-primary mb-2">২৪/৭</div>
-                <h3 className="text-xl font-semibold mb-2">উপলব্ধ</h3>
-                <p className="text-muted-foreground">যেকোনো সময়, যেকোনো ডিভাইস থেকে ব্যবহার করুন</p>
+                <div className="text-4xl font-bold text-primary mb-2">24/7</div>
+                <h3 className="text-xl font-semibold mb-2">Available</h3>
+                <p className="text-muted-foreground">Use anytime, from any device</p>
               </Card>
             </div>
           </motion.div>
@@ -148,9 +148,9 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">আরও টুলস</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">More Tools</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              আপনার দৈনন্দিন কাজের জন্য আরও উপযোগী টুলস
+              More useful tools for your daily tasks
             </p>
           </motion.div>
           
@@ -170,7 +170,7 @@ const Home = () => {
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" className="px-8 py-6" asChild>
               <Link to="/tools">
-                সব টুলস দেখুন
+                View All Tools
               </Link>
             </Button>
           </div>
@@ -191,13 +191,13 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">আজই শুরু করুন</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Started Today</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              আমাদের বিনামূল্যে টুলস দিয়ে আপনার কাজ সহজ করুন। কোনো সাইন আপ প্রয়োজন নেই।
+              Simplify your work with our free tools. No sign up required.
             </p>
             <Button size="lg" asChild className="text-lg px-8 py-6">
               <Link to="/calculator">
-                ক্যালকুলেটর ব্যবহার করুন
+                Use Calculator
               </Link>
             </Button>
           </motion.div>
