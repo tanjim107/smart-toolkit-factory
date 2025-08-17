@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { tools } from "@/data/tools";
 import ToolCard from "@/components/ToolCard";
-import Advertisement from "@/components/Advertisement";
+import AdSpace from "@/components/AdSpace";
 
 const Home = () => {
   const featuredTools = tools.slice(0, 6);
@@ -65,9 +65,19 @@ const Home = () => {
       </section>
 
       {/* Advertisement */}
-      <Advertisement 
+      <AdSpace 
         position="top"
-        className="my-8"
+        className="my-8 flex justify-center"
+        adCode={`<script type="text/javascript">
+          atOptions = {
+            'key' : 'ec4628848dbefce1f8db6f8fc0976c19',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/ec4628848dbefce1f8db6f8fc0976c19/invoke.js"></script>`}
       />
 
       {/* Featured Tools */}
@@ -101,9 +111,19 @@ const Home = () => {
       </section>
 
       {/* Advertisement */}
-      <Advertisement 
+      <AdSpace 
         position="middle"
-        className="my-8"
+        className="my-8 flex justify-center"
+        adCode={`<script type="text/javascript">
+          atOptions = {
+            'key' : '4950b1c28a30463619127963ce9ed6d9',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/4950b1c28a30463619127963ce9ed6d9/invoke.js"></script>`}
       />
 
       {/* Stats Section */}
@@ -178,9 +198,10 @@ const Home = () => {
       </section>
 
       {/* Advertisement */}
-      <Advertisement 
+      <AdSpace 
         position="bottom"
-        className="my-8"
+        className="my-8 flex justify-center"
+        adCode={`<script type='text/javascript' src='//pl25599361.profitableratecpm.com/79/b2/89/79b289f9f560997b3a7e4def6618b167.js'></script>`}
       />
 
       {/* Footer CTA */}

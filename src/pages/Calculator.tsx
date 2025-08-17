@@ -7,7 +7,7 @@ import { tools } from "@/data/tools";
 import { motion } from "framer-motion";
 import SEOHead from "@/components/SEOHead";
 import UsageInstructions from "@/components/UsageInstructions";
-import Advertisement from "@/components/Advertisement";
+import AdSpace from "@/components/AdSpace";
 
 const calculator = tools.find(tool => tool.id === "calculator")!;
 
@@ -274,7 +274,20 @@ const Calculator = () => {
     <>
       <SEOHead tool={calculator} />
       <div className="max-w-4xl mx-auto">
-        <Advertisement position="top" className="mb-6" />
+        <AdSpace 
+          position="top" 
+          className="mb-6 flex justify-center"
+          adCode={`<script type="text/javascript">
+            atOptions = {
+              'key' : 'ec4628848dbefce1f8db6f8fc0976c19',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script type="text/javascript" src="//www.highperformanceformat.com/ec4628848dbefce1f8db6f8fc0976c19/invoke.js"></script>`}
+        />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -385,7 +398,20 @@ const Calculator = () => {
           </motion.div>
         </div>
 
-        <Advertisement position="middle" className="my-6" />
+        <AdSpace 
+          position="middle" 
+          className="my-6 flex justify-center"
+          adCode={`<script type="text/javascript">
+            atOptions = {
+              'key' : '4950b1c28a30463619127963ce9ed6d9',
+              'format' : 'iframe',
+              'height' : 50,
+              'width' : 320,
+              'params' : {}
+            };
+          </script>
+          <script type="text/javascript" src="//www.highperformanceformat.com/4950b1c28a30463619127963ce9ed6d9/invoke.js"></script>`}
+        />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -395,7 +421,11 @@ const Calculator = () => {
           <UsageInstructions tool={calculator} />
         </motion.div>
 
-        <Advertisement position="bottom" className="mt-6" />
+        <AdSpace 
+          position="bottom" 
+          className="mt-6 flex justify-center"
+          adCode={`<script type='text/javascript' src='//pl25599361.profitableratecpm.com/79/b2/89/79b289f9f560997b3a7e4def6618b167.js'></script>`}
+        />
       </div>
     </>
   );

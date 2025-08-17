@@ -10,7 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
 import SEOHead from "./SEOHead";
 import UsageInstructions from "./UsageInstructions";
-import Advertisement from "./Advertisement";
+import AdSpace from "./AdSpace";
 
 // Import all tool components
 import PercentageCalculator from "@/tools/PercentageCalculator";
@@ -113,7 +113,20 @@ const ToolPage: React.FC = () => {
       <SEOHead tool={tool} />
       
       <div className="container mx-auto py-8 max-w-4xl">
-        <Advertisement position="top" className="mb-6" />
+        <AdSpace 
+          position="top" 
+          className="mb-6 flex justify-center"
+          adCode={`<script type="text/javascript">
+            atOptions = {
+              'key' : 'ec4628848dbefce1f8db6f8fc0976c19',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script type="text/javascript" src="//www.highperformanceformat.com/ec4628848dbefce1f8db6f8fc0976c19/invoke.js"></script>`}
+        />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -139,7 +152,20 @@ const ToolPage: React.FC = () => {
           {renderToolContent()}
         </motion.div>
 
-        <Advertisement position="middle" className="my-6" />
+        <AdSpace 
+          position="middle" 
+          className="my-6 flex justify-center"
+          adCode={`<script type="text/javascript">
+            atOptions = {
+              'key' : '4950b1c28a30463619127963ce9ed6d9',
+              'format' : 'iframe',
+              'height' : 50,
+              'width' : 320,
+              'params' : {}
+            };
+          </script>
+          <script type="text/javascript" src="//www.highperformanceformat.com/4950b1c28a30463619127963ce9ed6d9/invoke.js"></script>`}
+        />
 
         {/* Usage Instructions */}
         <motion.div
@@ -150,7 +176,11 @@ const ToolPage: React.FC = () => {
           <UsageInstructions tool={tool} />
         </motion.div>
 
-        <Advertisement position="bottom" className="mt-6" />
+        <AdSpace 
+          position="bottom" 
+          className="mt-6 flex justify-center"
+          adCode={`<script type='text/javascript' src='//pl25599361.profitableratecpm.com/79/b2/89/79b289f9f560997b3a7e4def6618b167.js'></script>`}
+        />
       </div>
     </>
   );
