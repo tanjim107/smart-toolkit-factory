@@ -54,222 +54,222 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
       },
       "percentage-calculator": {
         steps: [
-          "মূল সংখ্যা (Base Number) ইনপুট করুন",
-          "শতাংশ (Percentage) ইনপুট করুন",
-          "'Calculate' বাটনে ক্লিক করুন",
-          "ফলাফল দেখুন এবং প্রয়োজনে কপি করুন"
+          "Enter the base number",
+          "Enter the percentage value",
+          "Click 'Calculate' button",
+          "View results and copy if needed"
         ],
         tips: [
-          "ছাড় হিসাব করতে original price এবং discount percentage ব্যবহার করুন",
-          "বৃদ্ধি হিসাব করতে old value এবং increase percentage ব্যবহার করুন",
-          "মার্ক আপ হিসাবের জন্য cost price এবং markup percentage ব্যবহার করুন"
+          "Use original price and discount percentage for discount calculation",
+          "Use old value and increase percentage for growth calculation",
+          "Use cost price and markup percentage for markup calculation"
         ],
         features: [
-          "শতাংশ গণনা",
-          "ছাড় হিসাব",
-          "বৃদ্ধি/হ্রাস গণনা",
-          "তাৎক্ষণিক ফলাফল"
+          "Percentage calculation",
+          "Discount calculation",
+          "Increase/decrease calculation",
+          "Instant results"
         ],
         benefits: [
-          "সহজ শতাংশ গণনা",
-          "ব্যবসায়িক হিসাব সহায়ক",
-          "শিক্ষার্থীদের জন্য উপযোগী",
-          "সময় সাশ্রয়ী"
+          "Easy percentage calculation",
+          "Business calculation helper",
+          "Useful for students",
+          "Time saving"
         ]
       },
       "gst-calculator": {
         steps: [
-          "পণ্যের মূল্য (Amount) ইনপুট করুন",
-          "GST রেট (5%, 12%, 18%, 28%) সিলেক্ট করুন",
-          "Including/Excluding GST অপশন বেছে নিন",
-          "'Calculate GST' বাটনে ক্লিক করুন"
+          "Enter the product amount",
+          "Select GST rate (5%, 12%, 18%, 28%)",
+          "Choose Including/Excluding GST option",
+          "Click 'Calculate GST' button"
         ],
         tips: [
-          "CGST = SGST = GST Rate ÷ 2 (একই রাজ্যের মধ্যে)",
-          "IGST = Full GST Rate (রাজ্যের বাইরে)",
-          "বিক্রয় মূল্য = মূল মূল্য + GST",
-          "GST রেট সঠিক করে বেছে নিন"
+          "CGST = SGST = GST Rate ÷ 2 (within same state)",
+          "IGST = Full GST Rate (inter-state)",
+          "Selling price = Base price + GST",
+          "Choose correct GST rate"
         ],
         features: [
-          "CGST, SGST, IGST গণনা",
-          "সব GST রেট সাপোর্ট",
-          "Including/Excluding অপশন",
-          "বিস্তারিত ব্রেকডাউন"
+          "CGST, SGST, IGST calculation",
+          "All GST rates support",
+          "Including/Excluding option",
+          "Detailed breakdown"
         ],
         benefits: [
-          "GST হিসাব সহজ করে",
-          "ব্যবসায়ীদের জন্য প্রয়োজনীয়",
-          "ভুল কমায়",
-          "দ্রুত গণনা"
+          "Simplifies GST calculation",
+          "Essential for businesses",
+          "Reduces errors",
+          "Quick calculation"
         ]
       },
       "emi-calculator": {
         steps: [
-          "ঋণের পরিমাণ (Loan Amount) ইনপুট করুন",
-          "সুদের হার (Interest Rate) বার্ষিক হিসেবে দিন",
-          "ঋণের মেয়াদ (Loan Tenure) বছরে দিন",
-          "'Calculate EMI' বাটনে ক্লিক করুন"
+          "Enter loan amount",
+          "Enter annual interest rate",
+          "Enter loan tenure in years",
+          "Click 'Calculate EMI' button"
         ],
         tips: [
-          "কম EMI চাইলে loan tenure বাড়ান",
-          "মোট সুদ কমাতে tenure কমান",
-          "বিভিন্ন অপশন compare করুন",
-          "prepayment এর সুবিধা বিবেচনা করুন"
+          "Increase loan tenure for lower EMI",
+          "Reduce tenure to minimize total interest",
+          "Compare different options",
+          "Consider prepayment benefits"
         ],
         features: [
-          "মাসিক EMI গণনা",
-          "মোট সুদ হিসাব",
+          "Monthly EMI calculation",
+          "Total interest calculation",
           "Amortization schedule",
-          "গ্রাফিক্যাল উপস্থাপনা"
+          "Graphical representation"
         ],
         benefits: [
-          "ঋণ পরিকল্পনা সহায়ক",
-          "বাজেট করতে সাহায্য করে",
-          "বিভিন্ন অপশন তুলনা",
-          "আর্থিক সিদ্ধান্ত সহায়ক"
+          "Loan planning assistance",
+          "Budget planning help",
+          "Compare different options",
+          "Financial decision support"
         ]
       },
       "age-calculator": {
         steps: [
-          "আপনার জন্ম তারিখ (Birth Date) সিলেক্ট করুন",
-          "গণনার তারিখ (Current Date) সিলেক্ট করুন (অপশনাল)",
-          "'Calculate Age' বাটনে ক্লিক করুন",
-          "বিস্তারিত বয়স দেখুন (বছর, মাস, দিন)"
+          "Select your birth date",
+          "Select calculation date (optional)",
+          "Click 'Calculate Age' button",
+          "View detailed age (years, months, days)"
         ],
         tips: [
-          "ভবিষ্যতের কোন তারিখে বয়স জানতে current date পরিবর্তন করুন",
-          "সঠিক জন্ম তারিখ দিন নির্ভুল ফলাফলের জন্য",
-          "পরবর্তী জন্মদিন কত দিন বাকি তাও দেখতে পাবেন"
+          "Change current date to know age on future dates",
+          "Provide accurate birth date for precise results",
+          "See countdown to next birthday"
         ],
         features: [
-          "সুনির্দিষ্ট বয়স গণনা",
-          "বছর, মাস, দিন ভাগ",
-          "পরবর্তী জন্মদিন কাউন্টডাউন",
-          "তাৎক্ষণিক ফলাফল"
+          "Precise age calculation",
+          "Years, months, days breakdown",
+          "Next birthday countdown",
+          "Instant results"
         ],
         benefits: [
-          "সঠিক বয়স জানা",
-          "ডকুমেন্ট ফিলআপে সহায়ক",
-          "জন্মদিন ট্র্যাকিং",
-          "সহজ ইন্টারফেস"
+          "Know exact age",
+          "Document filling assistance",
+          "Birthday tracking",
+          "Simple interface"
         ]
       },
       "date-difference": {
         steps: [
-          "প্রথম তারিখ (From Date) সিলেক্ট করুন",
-          "দ্বিতীয় তারিখ (To Date) সিলেক্ট করুন",
-          "'Calculate Difference' বাটনে ক্লিক করুন",
-          "পার্থক্য দেখুন (দিন, সপ্তাহ, মাস, বছর)"
+          "Select first date (From Date)",
+          "Select second date (To Date)",
+          "Click 'Calculate Difference' button",
+          "View difference (days, weeks, months, years)"
         ],
         tips: [
-          "ইভেন্ট পরিকল্পনার জন্য ব্যবহার করুন",
-          "প্রজেক্ট টাইমলাইন হিসাব করুন",
-          "ছুটির দিন গণনা করুন",
-          "কর্মদিবস হিসাব করুন"
+          "Use for event planning",
+          "Calculate project timeline",
+          "Count vacation days",
+          "Calculate working days"
         ],
         features: [
-          "দুই তারিখের পার্থক্য",
-          "দিন, সপ্তাহ, মাস গণনা",
-          "কর্মদিবস গণনা",
-          "ক্যালেন্ডার ভিউ"
+          "Date difference calculation",
+          "Days, weeks, months counting",
+          "Working days calculation",
+          "Calendar view"
         ],
         benefits: [
-          "প্রজেক্ট প্ল্যানিং সহায়ক",
-          "ইভেন্ট অর্গানাইজিং",
-          "ছুটির পরিকল্পনা",
-          "সময় ব্যবস্থাপনা"
+          "Project planning assistance",
+          "Event organizing",
+          "Vacation planning",
+          "Time management"
         ]
       },
       "profit-loss": {
         steps: [
-          "ক্রয় মূল্য (Cost Price) ইনপুট করুন",
-          "বিক্রয় মূল্য (Selling Price) ইনপুট করুন",
-          "'Calculate' বাটনে ক্লিক করুন",
-          "লাভ/ক্ষতি এবং শতাংশ দেখুন"
+          "Enter cost price",
+          "Enter selling price",
+          "Click 'Calculate' button",
+          "View profit/loss and percentage"
         ],
         tips: [
-          "সব খরচ (transport, tax) cost price এ যোগ করুন",
-          "বাজার দর চেক করে selling price নির্ধারণ করুন",
-          "লাভের শতাংশ বিশ্লেষণ করুন",
-          "প্রতিযোগীদের দামের সাথে তুলনা করুন"
+          "Add all costs (transport, tax) to cost price",
+          "Check market rates before setting selling price",
+          "Analyze profit percentage",
+          "Compare with competitor prices"
         ],
         features: [
-          "লাভ-ক্ষতি গণনা",
-          "শতাংশ হিসাব",
-          "লাভের মার্জিন",
-          "বিস্তারিত বিশ্লেষণ"
+          "Profit-loss calculation",
+          "Percentage calculation",
+          "Profit margin",
+          "Detailed analysis"
         ],
         benefits: [
-          "ব্যবসায়িক সিদ্ধান্ত সহায়ক",
-          "দাম নির্ধারণে সাহায্য",
-          "লাভজনকতা বিশ্লেষণ",
-          "বাজেট পরিকল্পনা"
+          "Business decision support",
+          "Pricing assistance",
+          "Profitability analysis",
+          "Budget planning"
         ]
       },
       "area-calculator": {
         steps: [
-          "আকৃতি (Rectangle, Circle, Triangle) বেছে নিন",
-          "প্রয়োজনীয় মাত্রা ইনপুট করুন",
-          "একক (Unit) সিলেক্ট করুন",
-          "'Calculate Area' বাটনে ক্লিক করুন"
+          "Choose shape (Rectangle, Circle, Triangle)",
+          "Enter required dimensions",
+          "Select unit",
+          "Click 'Calculate Area' button"
         ],
         tips: [
-          "সঠিক মাপ নিশ্চিত করুন",
-          "একই একক ব্যবহার করুন",
-          "জটিল আকৃতি ভেঙে ছোট অংশে হিসাব করুন",
-          "রুম সাইজ, জমির আয়তন হিসাব করুন"
+          "Ensure accurate measurements",
+          "Use same unit for all measurements",
+          "Break complex shapes into smaller parts",
+          "Calculate room size, land area"
         ],
         features: [
-          "একাধিক আকৃতি সাপোর্ট",
-          "বিভিন্ন একক",
-          "ভিজ্যুয়াল প্রিভিউ",
-          "ফর্মুলা প্রদর্শন"
+          "Multiple shape support",
+          "Various units",
+          "Visual preview",
+          "Formula display"
         ],
         benefits: [
-          "নির্মাণ কাজে সহায়ক",
-          "জমি পরিমাপে উপযোগী",
-          "ইন্টেরিয়ার ডিজাইনে কাজে লাগে",
-          "গণিত শিক্ষায় সহায়ক"
+          "Construction work assistance",
+          "Land measurement utility",
+          "Interior design help",
+          "Math education support"
         ]
       },
       "ecommerce-profit": {
         steps: [
-          "পণ্যের খরচ (Product Cost) ইনপুট করুন",
-          "বিক্রয় মূল্য (Selling Price) দিন",
-          "অতিরিক্ত খরচ (Shipping, Tax, Fees) যোগ করুন",
-          "'Calculate Profit' বাটনে ক্লিক করুন"
+          "Enter product cost",
+          "Enter selling price",
+          "Add additional costs (Shipping, Tax, Fees)",
+          "Click 'Calculate Profit' button"
         ],
         tips: [
-          "সব hidden cost বিবেচনা করুন",
-          "Platform fees (Amazon, eBay) যোগ করুন",
-          "রিটার্ন এবং রিফান্ড খরচ হিসাব করুন",
-          "মার্কেটিং খরচ অন্তর্ভুক্ত করুন"
+          "Consider all hidden costs",
+          "Add platform fees (Amazon, eBay)",
+          "Calculate return and refund costs",
+          "Include marketing expenses"
         ],
         features: [
-          "ই-কমার্স স্পেসিফিক গণনা",
-          "Platform fees হিসাব",
-          "শিপিং কস্ট",
-          "মার্জিন বিশ্লেষণ"
+          "E-commerce specific calculation",
+          "Platform fees calculation",
+          "Shipping cost",
+          "Margin analysis"
         ],
         benefits: [
-          "অনলাইন বিজনেস অপ্টিমাইজেশন",
-          "প্রাইসিং স্ট্র্যাটেজি",
-          "লাভজনকতা বিশ্লেষণ",
-          "কস্ট ম্যানেজমেন্ট"
+          "Online business optimization",
+          "Pricing strategy",
+          "Profitability analysis",
+          "Cost management"
         ]
       },
       "gmail-generator": {
         steps: [
-          "আপনার Gmail address ইনপুট করুন",
-          "Dots (.) এবং Plus (+) ভেরিয়েশন দেখুন",
-          "প্রয়োজনীয় ভেরিয়েশন কপি করুন",
-          "বিভিন্ন সাইটে আলাদা ইমেইল হিসেবে ব্যবহার করুন"
+          "Enter your Gmail address",
+          "View dots (.) and plus (+) variations",
+          "Copy required variations",
+          "Use as different emails on various sites"
         ],
         tips: [
-          "একই Gmail একাউন্টে সব মেইল আসবে",
-          "সাইট অনুযায়ী ভিন্ন alias ব্যবহার করুন",
-          "Filtering এর জন্য plus সাইন ব্যবহার করুন",
-          "স্প্যাম ট্র্যাকিং এর জন্য কাজে লাগে"
+          "All emails will arrive in same Gmail account",
+          "Use different alias per site",
+          "Use plus sign for filtering",
+          "Useful for spam tracking"
         ],
         features: [
           "Dots variation",
@@ -278,140 +278,140 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
           "Easy copy function"
         ],
         benefits: [
-          "একাধিক একাউন্ট তৈরি",
-          "ইমেইল অর্গানাইজেশন",
-          "স্প্যাম ট্র্যাকিং",
-          "প্রাইভেসি বৃদ্ধি"
+          "Create multiple accounts",
+          "Email organization",
+          "Spam tracking",
+          "Privacy enhancement"
         ]
       },
       "qr-code-generator": {
         steps: [
-          "QR কোডের জন্য টেক্সট/URL ইনপুট করুন",
-          "সাইজ এবং কালার কাস্টমাইজ করুন (অপশনাল)",
-          "'Generate QR Code' বাটনে ক্লিক করুন",
-          "QR কোড ডাউনলোড বা শেয়ার করুন"
+          "Enter text/URL for QR code",
+          "Customize size and color (optional)",
+          "Click 'Generate QR Code' button",
+          "Download or share QR code"
         ],
         tips: [
-          "URL এর জন্য https:// যোগ করুন",
-          "ছোট টেক্সট ভালো QR কোড তৈরি করে",
-          "প্রিন্ট করার আগে টেস্ট করুন",
-          "উচ্চ রেজোলিউশনে ডাউনলোড করুন"
+          "Add https:// for URLs",
+          "Short text creates better QR codes",
+          "Test before printing",
+          "Download in high resolution"
         ],
         features: [
-          "টেক্সট, URL, ফোন নম্বর সাপোর্ট",
-          "কাস্টম সাইজ",
-          "কালার অপশন",
-          "ইনস্ট্যান্ট ডাউনলোড"
+          "Text, URL, phone number support",
+          "Custom size",
+          "Color options",
+          "Instant download"
         ],
         benefits: [
-          "দ্রুত তথ্য শেয়ারিং",
-          "কন্টাক্টলেস শেয়ারিং",
-          "মার্কেটিং টুল",
-          "সহজ স্ক্যানিং"
+          "Quick information sharing",
+          "Contactless sharing",
+          "Marketing tool",
+          "Easy scanning"
         ]
       },
       "password-generator": {
         steps: [
-          "পাসওয়ার্ডের দৈর্ঘ্য (Length) সিলেক্ট করুন",
-          "Character type (Uppercase, Lowercase, Numbers, Symbols) বেছে নিন",
-          "'Generate Password' বাটনে ক্লিক করুন",
-          "নিরাপদ পাসওয়ার্ড কপি করে ব্যবহার করুন"
+          "Select password length",
+          "Choose character types (Uppercase, Lowercase, Numbers, Symbols)",
+          "Click 'Generate Password' button",
+          "Copy and use secure password"
         ],
         tips: [
-          "কমপক্ষে ১২ অক্ষরের পাসওয়ার্ড ব্যবহার করুন",
-          "সব ধরনের character মিশ্রণ করুন",
-          "প্রতিটি একাউন্টের জন্য আলাদা পাসওয়ার্ড",
-          "Password manager ব্যবহার করুন"
+          "Use at least 12 characters",
+          "Mix all character types",
+          "Use different password for each account",
+          "Use password manager"
         ],
         features: [
-          "কাস্টম লেংথ",
-          "Character type সিলেকশন",
-          "মাল্টিপল জেনারেশন",
-          "কপি ফাংশন"
+          "Custom length",
+          "Character type selection",
+          "Multiple generation",
+          "Copy function"
         ],
         benefits: [
-          "শক্তিশালী নিরাপত্তা",
-          "হ্যাকিং প্রতিরোধ",
-          "একাউন্ট সুরক্ষা",
-          "র্যান্ডম জেনারেশন"
+          "Strong security",
+          "Hack prevention",
+          "Account protection",
+          "Random generation"
         ]
       },
       "image-converter": {
         steps: [
-          "ইমেজ ফাইল আপলোড করুন",
-          "আউটপুট ফরম্যাট (JPG, PNG, WebP) বেছে নিন",
-          "কোয়ালিটি সেটিংস অ্যাডজাস্ট করুন",
-          "'Convert' বাটনে ক্লিক করে ডাউনলোড করুন"
+          "Upload image file",
+          "Choose output format (JPG, PNG, WebP)",
+          "Adjust quality settings",
+          "Click 'Convert' button and download"
         ],
         tips: [
-          "WebP ফরম্যাট ছোট সাইজের জন্য ভালো",
-          "PNG ট্রান্সপ্যারেন্সির জন্য",
-          "JPG ফটোগ্রাফের জন্য",
-          "কোয়ালিটি অনুযায়ী সাইজ পরিবর্তন হয়"
+          "WebP format is good for smaller size",
+          "PNG for transparency",
+          "JPG for photographs",
+          "Size changes according to quality"
         ],
         features: [
-          "মাল্টিপল ফরম্যাট সাপোর্ট",
-          "কোয়ালিটি কন্ট্রোল",
-          "ব্যাচ কনভার্সন",
-          "প্রিভিউ ফাংশন"
+          "Multiple format support",
+          "Quality control",
+          "Batch conversion",
+          "Preview function"
         ],
         benefits: [
-          "ওয়েব অপ্টিমাইজেশন",
-          "স্টোরেজ সেভিং",
-          "ক্রস-প্ল্যাটফর্ম সাপোর্ট",
-          "সাইজ রিডাকশন"
+          "Web optimization",
+          "Storage saving",
+          "Cross-platform support",
+          "Size reduction"
         ]
       },
       "image-compressor": {
         steps: [
-          "ইমেজ ফাইল আপলোড করুন",
-          "কম্প্রেশন লেভেল সিলেক্ট করুন",
-          "প্রিভিউ দেখে সাইজ চেক করুন",
-          "'Compress' বাটনে ক্লিক করে ডাউনলোড করুন"
+          "Upload image file",
+          "Select compression level",
+          "Check size in preview",
+          "Click 'Compress' button and download"
         ],
         tips: [
-          "Original এর ব্যাকআপ রাখুন",
-          "ওয়েবসাইটের জন্য ৭০-৮০% কোয়ালিটি যথেষ্ট",
-          "প্রিন্টের জন্য উচ্চ কোয়ালিটি রাখুন",
-          "Before-After তুলনা করুন"
+          "Keep backup of original",
+          "70-80% quality is sufficient for websites",
+          "Keep high quality for printing",
+          "Compare before-after results"
         ],
         features: [
-          "লসলেস/লসি কম্প্রেশন",
-          "সাইজ প্রিভিউ",
-          "কোয়ালিটি কন্ট্রোল",
-          "ব্যাচ প্রসেসিং"
+          "Lossless/lossy compression",
+          "Size preview",
+          "Quality control",
+          "Batch processing"
         ],
         benefits: [
-          "ওয়েবসাইট স্পিড বৃদ্ধি",
-          "স্টোরেজ সাশ্রয়",
-          "লোডিং টাইম কমানো",
-          "ব্যান্ডউইথ সেভিং"
+          "Website speed improvement",
+          "Storage saving",
+          "Reduced loading time",
+          "Bandwidth saving"
         ]
       },
       "word-counter": {
         steps: [
-          "টেক্সট বক্সে আপনার লেখা পেস্ট করুন বা টাইপ করুন",
-          "রিয়েল টাইমে Word, Character count দেখুন",
-          "Paragraph, Sentence count চেক করুন",
-          "প্রয়োজনে টেক্সট এডিট করুন"
+          "Paste or type your text in the text box",
+          "View real-time word and character count",
+          "Check paragraph and sentence count",
+          "Edit text as needed"
         ],
         tips: [
-          "SEO এর জন্য optimal word count মেইনটেইন করুন",
-          "সোশ্যাল মিডিয়া character limit চেক করুন",
-          "এসাইনমেন্টের word limit ট্র্যাক করুন",
-          "Reading time estimate ব্যবহার করুন"
+          "Maintain optimal word count for SEO",
+          "Check social media character limits",
+          "Track assignment word limits",
+          "Use reading time estimates"
         ],
         features: [
-          "রিয়েল টাইম কাউন্টিং",
+          "Real-time counting",
           "Multiple metrics",
           "Reading time estimate",
           "Character density analysis"
         ],
         benefits: [
-          "কন্টেন্ট অপ্টিমাইজেশন",
-          "লেখার মান উন্নতি",
-          "প্ল্যাটফর্ম লিমিট ট্র্যাকিং",
-          "প্রোডাক্টিভিটি বৃদ্ধি"
+          "Content optimization",
+          "Writing quality improvement",
+          "Platform limit tracking",
+          "Productivity enhancement"
         ]
       }
     };
