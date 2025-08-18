@@ -55,16 +55,38 @@ const Calculator = () => {
   };
 
   const evaluateExpression = (expr: string): number => {
-    // Replace display symbols with JavaScript math functions
-    let expression = expr
-      .replace(/×/g, "*")
-      .replace(/÷/g, "/")
-      .replace(/π/g, Math.PI.toString())
-      .replace(/e/g, Math.E.toString());
-
     try {
-      // eslint-disable-next-line no-eval
-      return eval(expression);
+      // Replace display symbols with JavaScript math functions
+      let expression = expr
+        .replace(/×/g, "*")
+        .replace(/÷/g, "/")
+        .replace(/π/g, Math.PI.toString())
+        .replace(/e/g, Math.E.toString())
+        .replace(/\^/g, "**"); // Handle power operator
+
+      // Handle special cases
+      if (!expression || expression === "") return 0;
+      
+      // Validate parentheses
+      const openParens = (expression.match(/\(/g) || []).length;
+      const closeParens = (expression.match(/\)/g) || []).length;
+      if (openParens !== closeParens) {
+        throw new Error("Unmatched parentheses");
+      }
+
+      // Validate expression format
+      if (/[+\-*/]{2,}/.test(expression)) {
+        throw new Error("Invalid operator sequence");
+      }
+
+      // Safe evaluation using Function constructor instead of eval
+      const result = new Function('return ' + expression)();
+      
+      if (!isFinite(result) || isNaN(result)) {
+        throw new Error("Mathematical error");
+      }
+      
+      return result;
     } catch (error) {
       throw new Error("Invalid expression");
     }
@@ -102,16 +124,22 @@ const Calculator = () => {
         break;
       case "=":
         try {
+          if (!formula || formula === "") {
+            return;
+          }
           const result = evaluateExpression(formula);
-          setDisplay(result.toString());
-          setFormula(`${formula} = ${result}`);
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
+          setFormula(`${formula} = ${formattedResult}`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setCalculated(true);
           setTimeout(() => {
             setDisplay("0");
             setFormula("");
-          }, 1500);
+            setCalculated(false);
+          }, 2000);
         }
         break;
       case "+":
@@ -148,95 +176,144 @@ const Calculator = () => {
       case "sin":
         try {
           const num = parseFloat(display);
-          const angle = angleMode === "DEG" ? toRadians(num) : num;
-          const result = isInverse ? Math.asin(num) : Math.sin(angle);
-          const finalResult = isInverse && angleMode === "DEG" ? toDegrees(result) : result;
-          setDisplay(finalResult.toString());
+          if (isNaN(num)) throw new Error("Invalid number");
+          
+          let result;
+          if (isInverse) {
+            if (num < -1 || num > 1) throw new Error("Domain error");
+            result = Math.asin(num);
+            result = angleMode === "DEG" ? toDegrees(result) : result;
+          } else {
+            const angle = angleMode === "DEG" ? toRadians(num) : num;
+            result = Math.sin(angle);
+          }
+          
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`${isInverse ? "asin" : "sin"}(${display})`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "cos":
         try {
           const num = parseFloat(display);
-          const angle = angleMode === "DEG" ? toRadians(num) : num;
-          const result = isInverse ? Math.acos(num) : Math.cos(angle);
-          const finalResult = isInverse && angleMode === "DEG" ? toDegrees(result) : result;
-          setDisplay(finalResult.toString());
+          if (isNaN(num)) throw new Error("Invalid number");
+          
+          let result;
+          if (isInverse) {
+            if (num < -1 || num > 1) throw new Error("Domain error");
+            result = Math.acos(num);
+            result = angleMode === "DEG" ? toDegrees(result) : result;
+          } else {
+            const angle = angleMode === "DEG" ? toRadians(num) : num;
+            result = Math.cos(angle);
+          }
+          
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`${isInverse ? "acos" : "cos"}(${display})`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "tan":
         try {
           const num = parseFloat(display);
-          const angle = angleMode === "DEG" ? toRadians(num) : num;
-          const result = isInverse ? Math.atan(num) : Math.tan(angle);
-          const finalResult = isInverse && angleMode === "DEG" ? toDegrees(result) : result;
-          setDisplay(finalResult.toString());
+          if (isNaN(num)) throw new Error("Invalid number");
+          
+          let result;
+          if (isInverse) {
+            result = Math.atan(num);
+            result = angleMode === "DEG" ? toDegrees(result) : result;
+          } else {
+            const angle = angleMode === "DEG" ? toRadians(num) : num;
+            result = Math.tan(angle);
+            // Handle tan(90°) and similar cases
+            if (!isFinite(result)) throw new Error("Mathematical error");
+          }
+          
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`${isInverse ? "atan" : "tan"}(${display})`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "log":
         try {
           const num = parseFloat(display);
+          if (isNaN(num) || num <= 0) throw new Error("Domain error");
           const result = Math.log10(num);
-          setDisplay(result.toString());
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`log(${display})`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "ln":
         try {
           const num = parseFloat(display);
+          if (isNaN(num) || num <= 0) throw new Error("Domain error");
           const result = Math.log(num);
-          setDisplay(result.toString());
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`ln(${display})`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "√":
         try {
           const num = parseFloat(display);
+          if (isNaN(num) || num < 0) throw new Error("Domain error");
           const result = Math.sqrt(num);
-          setDisplay(result.toString());
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`√(${display})`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "x²":
         try {
           const num = parseFloat(display);
+          if (isNaN(num)) throw new Error("Invalid number");
           const result = Math.pow(num, 2);
-          setDisplay(result.toString());
+          const formattedResult = Number.isInteger(result) ? result.toString() : parseFloat(result.toFixed(10)).toString();
+          setDisplay(formattedResult);
           setFormula(`(${display})²`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "x!":
         try {
           const num = parseInt(display);
+          if (isNaN(num) || num < 0 || num > 170) throw new Error("Invalid input for factorial");
           const result = factorial(num);
+          if (!isFinite(result)) throw new Error("Result too large");
           setDisplay(result.toString());
           setFormula(`${display}!`);
           setCalculated(true);
         } catch (error) {
           setDisplay("Error");
+          setTimeout(() => { setDisplay("0"); setFormula(""); }, 2000);
         }
         break;
       case "x^y":
@@ -382,7 +459,7 @@ const Calculator = () => {
                   <CalculatorButton value="4" onClick={handleButtonClick} />
                   <CalculatorButton value="5" onClick={handleButtonClick} />
                   <CalculatorButton value="6" onClick={handleButtonClick} />
-                  <CalculatorButton value="+" onClick={handleButtonClick} className="bg-orange-50 text-orange-500 hover:bg-orange-100 row-span-2" />
+                  <CalculatorButton value="+" onClick={handleButtonClick} className="bg-orange-50 text-orange-500 hover:bg-orange-100" />
 
                   {/* Row 6: Numbers and equals */}
                   <CalculatorButton value="0" onClick={handleButtonClick} className="col-span-2" />
@@ -391,7 +468,7 @@ const Calculator = () => {
                   <CalculatorButton value="3" onClick={handleButtonClick} />
 
                   <CalculatorButton value="." onClick={handleButtonClick} />
-                  <CalculatorButton value="=" onClick={handleButtonClick} className="bg-primary text-white hover:bg-primary/90 col-span-2" />
+                  <CalculatorButton value="=" onClick={handleButtonClick} className="bg-primary text-primary-foreground hover:bg-primary/90 col-span-2" />
                 </div>
               </div>
             </Card>
