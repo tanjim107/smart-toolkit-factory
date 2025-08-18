@@ -7,16 +7,14 @@ import { format, differenceInYears, differenceInMonths, differenceInDays, differ
 
 const ImprovedDateDifferenceCalculator = () => {
   const { toast } = useToast();
+  const today = new Date();
   
   const [startYear, setStartYear] = useState<string>("");
   const [startMonth, setStartMonth] = useState<string>("");
   const [startDay, setStartDay] = useState<string>("");
-  const [endYear, setEndYear] = useState<string>("");
-  const [endMonth, setEndMonth] = useState<string>("");
-  const [endDay, setEndDay] = useState<string>("");
   
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(today);
   
   const [dateResult, setDateResult] = useState<{
     years: number;
@@ -54,10 +52,6 @@ const ImprovedDateDifferenceCalculator = () => {
     ? Array.from({ length: getDaysInMonth(parseInt(startYear), parseInt(startMonth)) }, (_, i) => i + 1)
     : Array.from({ length: 31 }, (_, i) => i + 1);
 
-  const endDays = endYear && endMonth 
-    ? Array.from({ length: getDaysInMonth(parseInt(endYear), parseInt(endMonth)) }, (_, i) => i + 1)
-    : Array.from({ length: 31 }, (_, i) => i + 1);
-
   // Update start date when all three values are selected
   React.useEffect(() => {
     if (startYear && startMonth && startDay) {
@@ -65,14 +59,6 @@ const ImprovedDateDifferenceCalculator = () => {
       setStartDate(newStartDate);
     }
   }, [startYear, startMonth, startDay]);
-
-  // Update end date when all three values are selected
-  React.useEffect(() => {
-    if (endYear && endMonth && endDay) {
-      const newEndDate = new Date(parseInt(endYear), parseInt(endMonth) - 1, parseInt(endDay));
-      setEndDate(newEndDate);
-    }
-  }, [endYear, endMonth, endDay]);
 
   const calculateDateDifference = () => {
     if (!startDate || !endDate) {
@@ -116,11 +102,8 @@ const ImprovedDateDifferenceCalculator = () => {
     setStartYear("");
     setStartMonth("");
     setStartDay("");
-    setEndYear("");
-    setEndMonth("");
-    setEndDay("");
     setStartDate(undefined);
-    setEndDate(undefined);
+    setEndDate(today);
     setDateResult(null);
   };
 
@@ -181,57 +164,14 @@ const ImprovedDateDifferenceCalculator = () => {
             )}
           </div>
 
-          {/* End Date Selection */}
+          {/* End Date - Automatically set to today */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-primary">End Date</h3>
-            <div className="grid grid-cols-1 gap-3">
-              <Select value={endYear} onValueChange={setEndYear}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Year" />
-                </SelectTrigger>
-                <SelectContent>
-                  {years.map((year) => (
-                    <SelectItem key={year} value={year.toString()}>
-                      {year}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select value={endMonth} onValueChange={setEndMonth}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Month" />
-                </SelectTrigger>
-                <SelectContent>
-                  {months.map((month) => (
-                    <SelectItem key={month.value} value={month.value}>
-                      {month.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select value={endDay} onValueChange={setEndDay}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Day" />
-                </SelectTrigger>
-                <SelectContent>
-                  {endDays.map((day) => (
-                    <SelectItem key={day} value={day.toString()}>
-                      {day}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            {endDate && (
-              <div className="p-3 bg-primary/10 rounded-md">
-                <div className="text-sm font-medium text-primary">
-                  End: {format(endDate, 'PPP')}
-                </div>
+            <h3 className="text-lg font-medium text-primary">End Date (Today)</h3>
+            <div className="p-3 bg-primary/10 rounded-md">
+              <div className="text-sm font-medium text-primary">
+                End: {format(endDate!, 'PPP')} (Today)
               </div>
-            )}
+            </div>
           </div>
           
           <div className="flex gap-3">
@@ -291,12 +231,12 @@ const ImprovedDateDifferenceCalculator = () => {
               </div>
             </div>
 
-            <div className="p-4 rounded-md bg-secondary/10 border border-secondary/20">
+            <div className="p-6 rounded-lg bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/60 shadow-lg">
               <div className="text-center">
-                <div className="text-2xl font-bold text-secondary mb-1">
+                <div className="text-3xl font-bold text-emerald-800 mb-2">
                   {dateResult.seconds.toLocaleString()}
                 </div>
-                <div className="text-sm text-muted-foreground">Total Seconds</div>
+                <div className="text-base font-medium text-emerald-700">Total Seconds</div>
               </div>
             </div>
           </motion.div>
