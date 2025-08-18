@@ -127,9 +127,18 @@ const PercentageCalculator = () => {
     <div className="max-w-2xl mx-auto">
       <Tabs defaultValue="find" className="w-full">
         <TabsList className="grid w-full grid-cols-3 mb-6">
-          <TabsTrigger value="find">Find Percentage</TabsTrigger>
-          <TabsTrigger value="calculate">Calculate Percentage</TabsTrigger>
-          <TabsTrigger value="value">Find Value</TabsTrigger>
+          <TabsTrigger value="find" className="text-xs sm:text-sm px-1 sm:px-3">
+            <span className="hidden sm:inline">Find Percentage</span>
+            <span className="sm:hidden">Find %</span>
+          </TabsTrigger>
+          <TabsTrigger value="calculate" className="text-xs sm:text-sm px-1 sm:px-3">
+            <span className="hidden sm:inline">Calculate Percentage</span>
+            <span className="sm:hidden">Calc %</span>
+          </TabsTrigger>
+          <TabsTrigger value="value" className="text-xs sm:text-sm px-1 sm:px-3">
+            <span className="hidden sm:inline">Find Value</span>
+            <span className="sm:hidden">Find Val</span>
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="find" className="space-y-4">
