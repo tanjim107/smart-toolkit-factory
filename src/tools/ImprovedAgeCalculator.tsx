@@ -240,60 +240,68 @@ const ImprovedAgeCalculator = () => {
             animate={{ opacity: 1, x: 0 }}
             className="md:col-span-3 space-y-5"
           >
-            <div className="p-6 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/20 border border-amber-200/30">
-              <div className="text-center">
-                <div className="text-sm text-amber-200 mb-2">Your Age</div>
-                <div className="text-4xl font-bold mb-3 text-white">
+            <div className="relative p-8 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 border border-violet-300/20 shadow-2xl overflow-hidden">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12"></div>
+              
+              <div className="relative text-center">
+                <div className="text-sm font-medium text-violet-200 mb-3 tracking-wide uppercase">Your Age</div>
+                <div className="text-5xl font-black mb-4 text-white drop-shadow-lg">
                   {ageResult.years}
-                  <span className="text-2xl"> years</span>
+                  <span className="text-2xl font-semibold text-violet-100"> years</span>
                 </div>
-                <div className="grid grid-cols-2 gap-4 mt-4">
-                  <div className="bg-white/10 p-3 rounded-md">
-                    <div className="text-2xl font-semibold">{ageResult.months}</div>
-                    <div className="text-xs text-amber-100">months</div>
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                  <div className="bg-white/15 backdrop-blur-sm p-4 rounded-xl border border-white/10 shadow-lg">
+                    <div className="text-3xl font-bold text-white drop-shadow-md">{ageResult.months}</div>
+                    <div className="text-sm font-medium text-violet-100 mt-1">months</div>
                   </div>
-                  <div className="bg-white/10 p-3 rounded-md">
-                    <div className="text-2xl font-semibold">{ageResult.days}</div>
-                    <div className="text-xs text-amber-100">days</div>
+                  <div className="bg-white/15 backdrop-blur-sm p-4 rounded-xl border border-white/10 shadow-lg">
+                    <div className="text-3xl font-bold text-white drop-shadow-md">{ageResult.days}</div>
+                    <div className="text-sm font-medium text-violet-100 mt-1">days</div>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 rounded-md bg-background/50 border border-border shadow-sm">
-                <div className="text-2xl font-semibold">{ageResult.totalMonths}</div>
-                <div className="text-xs text-muted-foreground">total months</div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/60 shadow-md hover:shadow-lg transition-all duration-300">
+                <div className="text-2xl font-bold text-emerald-800">{ageResult.totalMonths.toLocaleString()}</div>
+                <div className="text-sm font-medium text-emerald-600 mt-1">total months</div>
               </div>
               
-              <div className="p-3 rounded-md bg-background/50 border border-border shadow-sm">
-                <div className="text-2xl font-semibold">{ageResult.totalWeeks}</div>
-                <div className="text-xs text-muted-foreground">total weeks</div>
+              <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200/60 shadow-md hover:shadow-lg transition-all duration-300">
+                <div className="text-2xl font-bold text-blue-800">{ageResult.totalWeeks.toLocaleString()}</div>
+                <div className="text-sm font-medium text-blue-600 mt-1">total weeks</div>
               </div>
               
-              <div className="p-3 rounded-md bg-background/50 border border-border shadow-sm">
-                <div className="text-2xl font-semibold">{ageResult.totalDays}</div>
-                <div className="text-xs text-muted-foreground">total days</div>
+              <div className="p-4 rounded-xl bg-gradient-to-br from-rose-50 to-pink-50 border border-rose-200/60 shadow-md hover:shadow-lg transition-all duration-300">
+                <div className="text-2xl font-bold text-rose-800">{ageResult.totalDays.toLocaleString()}</div>
+                <div className="text-sm font-medium text-rose-600 mt-1">total days</div>
               </div>
             </div>
             
-            <div className="bg-background/50 border border-border p-4 rounded-md space-y-3 shadow-sm">
+            <div className="bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200/80 p-6 rounded-xl shadow-lg space-y-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <BarChart className="w-4 h-4 text-amber-500" />
-                  <h3 className="font-medium">Life Progress</h3>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-violet-100 rounded-lg">
+                    <BarChart className="w-5 h-5 text-violet-600" />
+                  </div>
+                  <h3 className="font-bold text-slate-800 text-lg">Life Progress</h3>
                 </div>
-                <div className="text-sm">{getLifeProgressPercentage(ageResult.years)}%</div>
+                <div className="text-2xl font-bold text-violet-600">{getLifeProgressPercentage(ageResult.years)}%</div>
               </div>
               
-              <div className="w-full bg-amber-100/10 rounded-full h-2.5">
+              <div className="w-full bg-slate-200 rounded-full h-4 shadow-inner">
                 <div 
-                  className="bg-gradient-to-r from-amber-500 to-amber-300 h-2.5 rounded-full" 
+                  className="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 h-4 rounded-full shadow-md transition-all duration-1000 ease-out relative overflow-hidden" 
                   style={{ width: `${getLifeProgressPercentage(ageResult.years)}%` }}
-                ></div>
+                >
+                  <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                </div>
               </div>
               
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-slate-600 font-medium">
                 Based on average life expectancy of 80 years
               </p>
             </div>
@@ -303,10 +311,10 @@ const ImprovedAgeCalculator = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="p-3 rounded-md bg-green-500/10 text-green-600 border border-green-200/30"
+                className="p-4 rounded-xl bg-gradient-to-r from-emerald-100 to-green-100 border border-emerald-300/50 shadow-md"
               >
-                <div className="font-medium">You are an adult</div>
-                <div className="text-sm">You've been an adult for {ageResult.years - 18} years</div>
+                <div className="font-bold text-emerald-800 text-lg">🎉 You are an adult!</div>
+                <div className="text-sm text-emerald-700 font-medium mt-1">You've been an adult for {ageResult.years - 18} years</div>
               </motion.div>
             )}
           </motion.div>
