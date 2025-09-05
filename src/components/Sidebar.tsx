@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
         )}
       >
         <div className="flex items-center justify-between p-4 border-b border-border/50">
-          <Link to="/" className="flex items-center gap-2 font-semibold">
+          <Link to="/" className="flex items-center gap-2 font-semibold" onClick={toggleSidebar}>
             <div className="bg-primary/10 text-primary rounded-md p-1">
               <Home className="w-5 h-5" />
             </div>
