@@ -8,8 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Copy, History, Search, Youtube, Sparkles, Globe, Clock, FileText, Hash, ChevronDown } from 'lucide-react';
+import { Copy, History, Search, Youtube, Sparkles, Globe, Clock, FileText, Hash } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface SEOContent {
@@ -22,11 +21,9 @@ interface SEOContent {
 
 const YouTubeSEOExpert = () => {
   const [topic, setTopic] = useState('');
-  const [apiKey, setApiKey] = useState('');
   const [targetAudience, setTargetAudience] = useState('General');
   const [language, setLanguage] = useState('English');
   const [tone, setTone] = useState('Educational');
-  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [seoContent, setSeoContent] = useState<SEOContent | null>(null);
   const [history, setHistory] = useState<SEOContent[]>([]);
@@ -37,56 +34,19 @@ const YouTubeSEOExpert = () => {
       return;
     }
 
-    if (!apiKey.trim()) {
-      toast.error('Please enter your Google Gemini API key');
-      return;
-    }
-
     setIsLoading(true);
 
     try {
-      const prompt = `
-      You are a YouTube SEO Expert. Generate content for this topic: "${topic}"
-      
-      Target Audience: ${targetAudience}
-      Language Preference: ${language}
-      Content Tone: ${tone}
-
-      Create exactly in this format:
-
-      TITLES:
-      1. [First title]
-      2. [Second title]  
-      3. [Third title]
-      4. [Fourth title]
-
-      DESCRIPTION:
-      [Write a 150-200 word SEO optimized description with keywords, hashtags, and call-to-action. Consider the target audience: ${targetAudience}, use ${language} as primary language with some local language mix, and maintain a ${tone} tone.]
-
-      TAGS:
-      [Provide exactly 20 trending, SEO-friendly tags separated by commas]
-
-      Requirements:
-      - Target audience: ${targetAudience}
-      - Primary language: ${language} with Bengali/Hindi mix for broader reach
-      - Tone: ${tone}
-      - Keep titles under 60 characters and clickable
-      - Include trending keywords and hashtags
-      - Make description engaging with call-to-action
-      - Tags should cover main topic + related trending terms
-      `;
-
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+      const response = await fetch('/api/youtube-seo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: prompt
-            }]
-          }]
+          topic,
+          targetAudience,
+          language,
+          tone
         })
       });
 
@@ -95,13 +55,11 @@ const YouTubeSEOExpert = () => {
       }
 
       const data = await response.json();
-      const generatedText = data.candidates[0].content.parts[0].text;
-
-      // Parse the generated content
-      const parsedContent = parseGeneratedContent(generatedText);
       
       const newContent: SEOContent = {
-        ...parsedContent,
+        titles: data.titles,
+        description: data.description,
+        tags: data.tags,
         timestamp: new Date(),
         topic: topic
       };
@@ -112,7 +70,7 @@ const YouTubeSEOExpert = () => {
 
     } catch (error) {
       console.error('Error:', error);
-      toast.error('Failed to generate content. Please check your API key.');
+      toast.error('Failed to generate content. Please try again.');
     }
 
     setIsLoading(false);
@@ -256,25 +214,6 @@ const YouTubeSEOExpert = () => {
             </Select>
           </div>
 
-          <Collapsible open={isAdvancedOpen} onOpenChange={setIsAdvancedOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-medium hover:bg-muted/50 p-2 rounded-md">
-              Advanced Settings
-              <ChevronDown className={`w-4 h-4 transition-transform ${isAdvancedOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pt-4">
-              <div>
-                <label className="text-sm font-medium mb-2 block">
-                  Google Gemini API Key
-                </label>
-                <Input
-                  type="password"
-                  placeholder="Enter your Gemini API key..."
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                />
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
           
           <Button 
             onClick={generateSEOContent} 
