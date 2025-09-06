@@ -7,7 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { Copy, History, Search, Youtube, Sparkles, Globe, Clock, FileText, Hash } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Copy, History, Search, Youtube, Sparkles, Globe, Clock, FileText, Hash, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface SEOContent {
@@ -21,6 +23,10 @@ interface SEOContent {
 const YouTubeSEOExpert = () => {
   const [topic, setTopic] = useState('');
   const [apiKey, setApiKey] = useState('');
+  const [targetAudience, setTargetAudience] = useState('General');
+  const [language, setLanguage] = useState('English');
+  const [tone, setTone] = useState('Educational');
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [seoContent, setSeoContent] = useState<SEOContent | null>(null);
   const [history, setHistory] = useState<SEOContent[]>([]);
@@ -41,6 +47,10 @@ const YouTubeSEOExpert = () => {
     try {
       const prompt = `
       You are a YouTube SEO Expert. Generate content for this topic: "${topic}"
+      
+      Target Audience: ${targetAudience}
+      Language Preference: ${language}
+      Content Tone: ${tone}
 
       Create exactly in this format:
 
@@ -51,13 +61,15 @@ const YouTubeSEOExpert = () => {
       4. [Fourth title]
 
       DESCRIPTION:
-      [Write a 150-200 word SEO optimized description with keywords, hashtags, and call-to-action. Include both English and local language elements for global reach.]
+      [Write a 150-200 word SEO optimized description with keywords, hashtags, and call-to-action. Consider the target audience: ${targetAudience}, use ${language} as primary language with some local language mix, and maintain a ${tone} tone.]
 
       TAGS:
       [Provide exactly 20 trending, SEO-friendly tags separated by commas]
 
       Requirements:
-      - Mix English and Bengali/Hindi for broader reach
+      - Target audience: ${targetAudience}
+      - Primary language: ${language} with Bengali/Hindi mix for broader reach
+      - Tone: ${tone}
       - Keep titles under 60 characters and clickable
       - Include trending keywords and hashtags
       - Make description engaging with call-to-action
@@ -171,36 +183,103 @@ const YouTubeSEOExpert = () => {
             Content Generator
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
+          <div>
+            <label className="text-sm font-medium mb-2 block">
+              Video Topic *
+            </label>
+            <Textarea
+              placeholder="Describe your video topic (e.g., 'How to cook authentic Italian pasta at home')"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              className="min-h-[80px] resize-none"
+            />
+            <div className="text-xs text-muted-foreground mt-1">
+              {topic.length}/200 characters
+            </div>
+          </div>
+
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="text-sm font-medium mb-2 block">
-                Google Gemini API Key
+                Target Audience
               </label>
-              <Input
-                type="password"
-                placeholder="Enter your Gemini API key..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-              />
+              <Select value={targetAudience} onValueChange={setTargetAudience}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="General">General</SelectItem>
+                  <SelectItem value="Beginners">Beginners</SelectItem>
+                  <SelectItem value="Advanced">Advanced</SelectItem>
+                  <SelectItem value="Kids">Kids</SelectItem>
+                  <SelectItem value="Teens">Teens</SelectItem>
+                  <SelectItem value="Adults">Adults</SelectItem>
+                  <SelectItem value="Professionals">Professionals</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="text-sm font-medium mb-2 block">
-                Video Topic
+                Language
               </label>
-              <Input
-                placeholder="Enter your video topic..."
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && generateSEOContent()}
-              />
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="English">English</SelectItem>
+                  <SelectItem value="Bengali">Bengali</SelectItem>
+                  <SelectItem value="Hindi">Hindi</SelectItem>
+                  <SelectItem value="Mixed">Mixed (Multi-language)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
+
+          <div>
+            <label className="text-sm font-medium mb-2 block">
+              Tone
+            </label>
+            <Select value={tone} onValueChange={setTone}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Educational">Educational</SelectItem>
+                <SelectItem value="Entertaining">Entertaining</SelectItem>
+                <SelectItem value="Professional">Professional</SelectItem>
+                <SelectItem value="Casual">Casual</SelectItem>
+                <SelectItem value="Motivational">Motivational</SelectItem>
+                <SelectItem value="Funny">Funny</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <Collapsible open={isAdvancedOpen} onOpenChange={setIsAdvancedOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full text-sm font-medium hover:bg-muted/50 p-2 rounded-md">
+              Advanced Settings
+              <ChevronDown className={`w-4 h-4 transition-transform ${isAdvancedOpen ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pt-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">
+                  Google Gemini API Key
+                </label>
+                <Input
+                  type="password"
+                  placeholder="Enter your Gemini API key..."
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                />
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
           
           <Button 
             onClick={generateSEOContent} 
             disabled={isLoading}
-            className="w-full"
+            className="w-full bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white font-medium"
           >
             {isLoading ? (
               <>
@@ -210,7 +289,7 @@ const YouTubeSEOExpert = () => {
             ) : (
               <>
                 <Sparkles className="w-4 h-4 mr-2" />
-                Generate SEO Content
+                Generate SEO Pack
               </>
             )}
           </Button>
