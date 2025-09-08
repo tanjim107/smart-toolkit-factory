@@ -197,15 +197,15 @@ Requirements:
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
-      <div className="text-center space-y-4">
+    <div className="max-w-6xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
+      <div className="text-center space-y-3 sm:space-y-4">
         <div className="flex items-center justify-center gap-2">
-          <Youtube className="w-8 h-8 text-red-500" />
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-red-500 to-purple-600 bg-clip-text text-transparent">
+          <Youtube className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-red-500 to-purple-600 bg-clip-text text-transparent">
             YouTube SEO Expert
           </h1>
         </div>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base px-4">
           Generate SEO-optimized titles, descriptions, and tags for your YouTube videos using AI
         </p>
       </div>
@@ -217,29 +217,29 @@ Requirements:
             Content Generator
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6">
           <div>
-            <label className="text-sm font-medium mb-2 block">
+            <label className="text-sm sm:text-base font-medium mb-2 block">
               Video Topic *
             </label>
             <Textarea
               placeholder="Describe your video topic (e.g., 'How to cook authentic Italian pasta at home')"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="min-h-[80px] resize-none"
+              className="min-h-[100px] sm:min-h-[80px] resize-none text-base"
             />
             <div className="text-xs text-muted-foreground mt-1">
               {topic.length}/200 characters
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-sm font-medium mb-2 block">
+              <label className="text-sm sm:text-base font-medium mb-2 block">
                 Target Audience
               </label>
               <Select value={targetAudience} onValueChange={setTargetAudience}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 text-base">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -254,11 +254,11 @@ Requirements:
               </Select>
             </div>
             <div>
-              <label className="text-sm font-medium mb-2 block">
+              <label className="text-sm sm:text-base font-medium mb-2 block">
                 Language
               </label>
               <Select value={language} onValueChange={setLanguage}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 text-base">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -272,11 +272,11 @@ Requirements:
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-2 block">
+            <label className="text-sm sm:text-base font-medium mb-2 block">
               Tone
             </label>
             <Select value={tone} onValueChange={setTone}>
-              <SelectTrigger>
+              <SelectTrigger className="h-12 text-base">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -294,7 +294,7 @@ Requirements:
           <Button 
             onClick={generateSEOContent} 
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white font-medium"
+            className="w-full h-12 sm:h-10 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white font-medium text-base"
           >
             {isLoading ? (
               <>
@@ -313,37 +313,40 @@ Requirements:
 
       {seoContent && (
         <Tabs defaultValue="content" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="content" className="flex items-center gap-2">
-              <Youtube className="w-4 h-4" />
-              Generated Content
+          <TabsList className="grid w-full grid-cols-2 h-12">
+            <TabsTrigger value="content" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Youtube className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Generated Content</span>
+              <span className="sm:hidden">Content</span>
             </TabsTrigger>
-            <TabsTrigger value="history" className="flex items-center gap-2">
-              <History className="w-4 h-4" />
-              History ({history.length})
+            <TabsTrigger value="history" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <History className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">History ({history.length})</span>
+              <span className="sm:hidden">History ({history.length})</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="content" className="space-y-6">
+          <TabsContent value="content" className="space-y-4 sm:space-y-6">
             {/* Titles */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="flex items-center justify-between text-base sm:text-lg">
                   <span className="flex items-center gap-2">
-                    <Globe className="w-5 h-5 text-blue-500" />
-                    SEO-Friendly Titles
+                    <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+                    <span className="text-sm sm:text-base">SEO-Friendly Titles</span>
                   </span>
-                  <Badge variant="secondary">{seoContent.titles.length} titles</Badge>
+                  <Badge variant="secondary" className="text-xs">{seoContent.titles.length} titles</Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-3 p-4 sm:p-6">
                 {seoContent.titles.map((title, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <span className="flex-1 text-sm">{title}</span>
+                  <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                    <span className="flex-1 text-sm sm:text-base leading-relaxed">{title}</span>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => copyToClipboard(title, 'Title')}
+                      className="h-8 w-8 p-0 flex-shrink-0"
                     >
                       <Copy className="w-4 h-4" />
                     </Button>
@@ -354,26 +357,26 @@ Requirements:
 
             {/* Description */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="flex items-center justify-between text-base sm:text-lg">
                   <span className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-green-500" />
-                    Optimized Description
+                    <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
+                    <span className="text-sm sm:text-base">Optimized Description</span>
                   </span>
-                  <Badge variant="secondary">{seoContent.description.split(' ').length} words</Badge>
+                  <Badge variant="secondary" className="text-xs">{seoContent.description.split(' ').length} words</Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6">
                 <div className="space-y-3">
                   <Textarea
                     value={seoContent.description}
                     readOnly
-                    className="min-h-[120px] resize-none"
+                    className="min-h-[140px] sm:min-h-[120px] resize-none text-base"
                   />
                   <Button
                     variant="outline"
                     onClick={() => copyToClipboard(seoContent.description, 'Description')}
-                    className="w-full"
+                    className="w-full h-12 sm:h-10 text-base"
                   >
                     <Copy className="w-4 h-4 mr-2" />
                     Copy Description
@@ -384,20 +387,20 @@ Requirements:
 
             {/* Tags */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="flex items-center justify-between text-base sm:text-lg">
                   <span className="flex items-center gap-2">
-                    <Hash className="w-5 h-5 text-purple-500" />
-                    Trending Tags
+                    <Hash className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+                    <span className="text-sm sm:text-base">Trending Tags</span>
                   </span>
-                  <Badge variant="secondary">{seoContent.tags.length} tags</Badge>
+                  <Badge variant="secondary" className="text-xs">{seoContent.tags.length} tags</Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6">
                 <div className="space-y-3">
                   <div className="flex flex-wrap gap-2">
                     {seoContent.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
+                      <Badge key={index} variant="outline" className="text-xs sm:text-sm py-1 px-2">
                         {tag}
                       </Badge>
                     ))}
@@ -405,7 +408,7 @@ Requirements:
                   <Button
                     variant="outline"
                     onClick={() => copyToClipboard(seoContent.tags.join(', '), 'Tags')}
-                    className="w-full"
+                    className="w-full h-12 sm:h-10 text-base"
                   >
                     <Copy className="w-4 h-4 mr-2" />
                     Copy All Tags
@@ -417,38 +420,40 @@ Requirements:
 
           <TabsContent value="history">
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <History className="w-5 h-5" />
-                  Generation History
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                  <History className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="text-sm sm:text-base">Generation History</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6">
                 {history.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
                     <History className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>No history yet. Generate some content to see it here!</p>
+                    <p className="text-sm sm:text-base">No history yet. Generate some content to see it here!</p>
                   </div>
                 ) : (
                   <ScrollArea className="h-[400px]">
                     <div className="space-y-4">
                       {history.map((item, index) => (
-                        <div key={index} className="border rounded-lg p-4 space-y-2">
-                          <div className="flex items-center justify-between">
-                            <h4 className="font-medium text-sm">{item.topic}</h4>
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div key={index} className="border rounded-lg p-4 space-y-3">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                            <h4 className="font-medium text-sm sm:text-base line-clamp-2">{item.topic}</h4>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground flex-shrink-0">
                               <Clock className="w-3 h-3" />
-                              {item.timestamp.toLocaleDateString()} {item.timestamp.toLocaleTimeString()}
+                              <span className="whitespace-nowrap">
+                                {item.timestamp.toLocaleDateString()} {item.timestamp.toLocaleTimeString()}
+                              </span>
                             </div>
                           </div>
-                          <p className="text-xs text-muted-foreground line-clamp-2">
+                          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                             {item.titles[0]}
                           </p>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => loadFromHistory(item)}
-                            className="w-full"
+                            className="w-full h-10 text-sm sm:text-base"
                           >
                             Load This Content
                           </Button>
