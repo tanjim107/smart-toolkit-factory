@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +27,37 @@ const YouTubeSEOExpert = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [seoContent, setSeoContent] = useState<SEOContent | null>(null);
   const [history, setHistory] = useState<SEOContent[]>([]);
+
+  // Load history from localStorage on component mount
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('youtube-seo-history');
+    if (savedHistory) {
+      const parsedHistory = JSON.parse(savedHistory).map((item: any) => ({
+        ...item,
+        timestamp: new Date(item.timestamp)
+      }));
+      
+      // Filter out entries older than 7 days
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      
+      const validHistory = parsedHistory.filter((item: SEOContent) => 
+        item.timestamp > sevenDaysAgo
+      );
+      
+      setHistory(validHistory);
+      
+      // Update localStorage with filtered history
+      localStorage.setItem('youtube-seo-history', JSON.stringify(validHistory));
+    }
+  }, []);
+
+  // Save history to localStorage whenever it changes
+  useEffect(() => {
+    if (history.length > 0) {
+      localStorage.setItem('youtube-seo-history', JSON.stringify(history));
+    }
+  }, [history]);
 
   const generateSEOContent = async () => {
     if (!topic.trim()) {
@@ -100,8 +131,17 @@ Requirements:
       };
 
       setSeoContent(newContent);
-      setHistory(prev => [newContent, ...prev.slice(0, 9)]); // Keep last 10
-      toast.success('SEO content generated successfully!');
+      
+      // Add to history and keep only recent entries (within 7 days)
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      
+      setHistory(prev => {
+        const updatedHistory = [newContent, ...prev];
+        return updatedHistory.filter(item => item.timestamp > sevenDaysAgo);
+      });
+      
+      toast.success('✅ SEO Pack Generated & Saved to History!');
 
     } catch (error) {
       console.error('Error:', error);
