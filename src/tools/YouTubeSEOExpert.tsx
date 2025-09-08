@@ -68,26 +68,27 @@ Requirements:
 - Tags should cover main topic + related trending terms
       `;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB27VoFVRbKbpKDPrsSK2fDCcwiRNyfZFc`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyB27VoFVRbKbpKDPrsSK2fDCcwiRNyfZFc`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           contents: [{
-            parts: [{
-              text: prompt
-            }]
+            role: 'user',
+            parts: [{ text: prompt }]
           }]
         })
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to generate content');
+        const msg = (data as any)?.error?.message || 'Failed to generate content';
+        throw new Error(msg);
       }
 
-      const data = await response.json();
-      const generatedText = data.candidates[0].content.parts[0].text;
+      const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
       // Parse the generated content
       const parsedContent = parseGeneratedContent(generatedText);
@@ -104,7 +105,8 @@ Requirements:
 
     } catch (error) {
       console.error('Error:', error);
-      toast.error('Failed to generate content. Please try again.');
+      const message = (error as any)?.message || 'Failed to generate content. Please try again.';
+      toast.error(message);
     }
 
     setIsLoading(false);
