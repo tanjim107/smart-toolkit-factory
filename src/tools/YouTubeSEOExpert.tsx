@@ -37,16 +37,48 @@ const YouTubeSEOExpert = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/youtube-seo', {
+      const prompt = `
+You are a YouTube SEO Expert. Generate content for this topic: "${topic}"
+
+Target Audience: ${targetAudience}
+Language Preference: ${language}
+Content Tone: ${tone}
+
+Create exactly in this format:
+
+TITLES:
+1. [First title]
+2. [Second title]  
+3. [Third title]
+4. [Fourth title]
+
+DESCRIPTION:
+[Write a 150-200 word SEO optimized description with keywords, hashtags, and call-to-action. Consider the target audience: ${targetAudience}, use ${language} as primary language, and maintain a ${tone} tone.]
+
+TAGS:
+[Provide exactly 20 trending, SEO-friendly tags separated by commas]
+
+Requirements:
+- Target audience: ${targetAudience}
+- Primary language: ${language}
+- Tone: ${tone}
+- Keep titles under 60 characters and clickable
+- Include trending keywords and hashtags
+- Make description engaging with call-to-action
+- Tags should cover main topic + related trending terms
+      `;
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB27VoFVRbKbpKDPrsSK2fDCcwiRNyfZFc`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          topic,
-          targetAudience,
-          language,
-          tone
+          contents: [{
+            parts: [{
+              text: prompt
+            }]
+          }]
         })
       });
 
@@ -55,11 +87,13 @@ const YouTubeSEOExpert = () => {
       }
 
       const data = await response.json();
+      const generatedText = data.candidates[0].content.parts[0].text;
+
+      // Parse the generated content
+      const parsedContent = parseGeneratedContent(generatedText);
       
       const newContent: SEOContent = {
-        titles: data.titles,
-        description: data.description,
-        tags: data.tags,
+        ...parsedContent,
         timestamp: new Date(),
         topic: topic
       };
