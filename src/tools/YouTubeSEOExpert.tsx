@@ -226,7 +226,7 @@ Requirements:
               placeholder="Describe your video topic (e.g., 'How to cook authentic Italian pasta at home')"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="min-h-[100px] sm:min-h-[80px] resize-none text-base"
+              className="min-h-[140px] resize-none text-lg p-4 rounded-lg"
             />
             <div className="text-xs text-muted-foreground mt-1">
               {topic.length}/200 characters
@@ -239,7 +239,7 @@ Requirements:
                 Target Audience
               </label>
               <Select value={targetAudience} onValueChange={setTargetAudience}>
-                <SelectTrigger className="h-12 text-base">
+                <SelectTrigger className="h-14 text-lg p-4 rounded-lg">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -258,7 +258,7 @@ Requirements:
                 Language
               </label>
               <Select value={language} onValueChange={setLanguage}>
-                <SelectTrigger className="h-12 text-base">
+                <SelectTrigger className="h-14 text-lg p-4 rounded-lg">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -276,7 +276,7 @@ Requirements:
               Tone
             </label>
             <Select value={tone} onValueChange={setTone}>
-              <SelectTrigger className="h-12 text-base">
+              <SelectTrigger className="h-14 text-lg p-4 rounded-lg">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -294,7 +294,7 @@ Requirements:
           <Button 
             onClick={generateSEOContent} 
             disabled={isLoading}
-            className="w-full h-12 sm:h-10 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white font-medium text-base"
+            className="w-full h-14 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
           >
             {isLoading ? (
               <>
@@ -338,17 +338,17 @@ Requirements:
                   <Badge variant="secondary" className="text-xs">{seoContent.titles.length} titles</Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 p-4 sm:p-6">
+              <CardContent className="space-y-4 p-6">
                 {seoContent.titles.map((title, index) => (
-                  <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                    <span className="flex-1 text-sm sm:text-base leading-relaxed">{title}</span>
+                  <div key={index} className="flex items-start gap-4 p-4 bg-muted/50 rounded-xl min-h-[100px] border border-border/50">
+                    <span className="flex-1 text-lg leading-relaxed font-medium">{title}</span>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => copyToClipboard(title, 'Title')}
-                      className="h-8 w-8 p-0 flex-shrink-0"
+                      className="h-10 w-10 p-0 flex-shrink-0 rounded-lg hover:bg-background"
                     >
-                      <Copy className="w-4 h-4" />
+                      <Copy className="w-5 h-5" />
                     </Button>
                   </div>
                 ))}
@@ -366,19 +366,19 @@ Requirements:
                   <Badge variant="secondary" className="text-xs">{seoContent.description.split(' ').length} words</Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-4 sm:p-6">
-                <div className="space-y-3">
+              <CardContent className="p-6">
+                <div className="space-y-4">
                   <Textarea
                     value={seoContent.description}
                     readOnly
-                    className="min-h-[140px] sm:min-h-[120px] resize-none text-base"
+                    className="min-h-[140px] resize-none text-lg p-4 rounded-xl border-2 border-border/50"
                   />
                   <Button
                     variant="outline"
                     onClick={() => copyToClipboard(seoContent.description, 'Description')}
-                    className="w-full h-12 sm:h-10 text-base"
+                    className="w-full h-12 text-lg font-medium rounded-lg"
                   >
-                    <Copy className="w-4 h-4 mr-2" />
+                    <Copy className="w-5 h-5 mr-2" />
                     Copy Description
                   </Button>
                 </div>
@@ -396,11 +396,11 @@ Requirements:
                   <Badge variant="secondary" className="text-xs">{seoContent.tags.length} tags</Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-4 sm:p-6">
-                <div className="space-y-3">
-                  <div className="flex flex-wrap gap-2">
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-3 min-h-[120px] p-4 bg-muted/30 rounded-xl border border-border/50">
                     {seoContent.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-xs sm:text-sm py-1 px-2">
+                      <Badge key={index} variant="outline" className="text-base py-2 px-4 font-medium rounded-lg">
                         {tag}
                       </Badge>
                     ))}
@@ -408,9 +408,9 @@ Requirements:
                   <Button
                     variant="outline"
                     onClick={() => copyToClipboard(seoContent.tags.join(', '), 'Tags')}
-                    className="w-full h-12 sm:h-10 text-base"
+                    className="w-full h-12 text-lg font-medium rounded-lg"
                   >
-                    <Copy className="w-4 h-4 mr-2" />
+                    <Copy className="w-5 h-5 mr-2" />
                     Copy All Tags
                   </Button>
                 </div>
