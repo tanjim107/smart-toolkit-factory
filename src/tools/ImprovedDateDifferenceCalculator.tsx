@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { format, differenceInYears, differenceInMonths, differenceInDays, differenceInWeeks, differenceInHours, differenceInSeconds, isAfter } from "date-fns";
+import { format, differenceInYears, differenceInMonths, differenceInDays, differenceInWeeks, differenceInHours, differenceInMinutes, differenceInSeconds, isAfter } from "date-fns";
 
 const ImprovedDateDifferenceCalculator = () => {
   const { toast } = useToast();
@@ -22,6 +22,7 @@ const ImprovedDateDifferenceCalculator = () => {
     weeks: number;
     days: number;
     hours: number;
+    minutes: number;
     seconds: number;
     totalDays: number;
   } | null>(null);
@@ -85,6 +86,7 @@ const ImprovedDateDifferenceCalculator = () => {
     const weeks = differenceInWeeks(endDate, startDate);
     const days = differenceInDays(endDate, startDate);
     const hours = differenceInHours(endDate, startDate);
+    const minutes = differenceInMinutes(endDate, startDate);
     const seconds = differenceInSeconds(endDate, startDate);
     
     setDateResult({
@@ -93,6 +95,7 @@ const ImprovedDateDifferenceCalculator = () => {
       weeks,
       days,
       hours,
+      minutes,
       seconds,
       totalDays: days
     });
@@ -228,6 +231,11 @@ const ImprovedDateDifferenceCalculator = () => {
               <div className="p-4 rounded-md bg-primary/5 border border-primary/10">
                 <div className="text-2xl font-bold text-primary">{dateResult.hours.toLocaleString()}</div>
                 <div className="text-sm text-muted-foreground">Hours</div>
+              </div>
+              
+              <div className="p-4 rounded-md bg-primary/5 border border-primary/10">
+                <div className="text-2xl font-bold text-primary">{dateResult.minutes.toLocaleString()}</div>
+                <div className="text-sm text-muted-foreground">Minutes</div>
               </div>
             </div>
 
