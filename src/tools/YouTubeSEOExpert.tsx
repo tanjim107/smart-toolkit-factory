@@ -226,7 +226,7 @@ Requirements:
               placeholder="Describe your video topic (e.g., 'How to cook authentic Italian pasta at home')"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="min-h-[150px] sm:min-h-[140px] resize-none text-lg p-4 rounded-lg"
+              className="min-h-[120px] sm:min-h-[140px] resize-none text-base sm:text-lg p-3 sm:p-4 rounded-lg w-full"
             />
             <div className="text-xs text-muted-foreground mt-1">
               {topic.length}/200 characters
