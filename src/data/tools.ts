@@ -14,7 +14,8 @@ import {
   Key, 
   Images, 
   FileImage, 
-  FileText
+  FileText,
+  ImageIcon
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -147,6 +148,14 @@ export const tools: Tool[] = [
     icon: FileText,
     path: "/word-counter",
     color: "bg-lime-50 text-lime-500 border-lime-100"
+  },
+  {
+    id: "image-to-qr",
+    name: "Image to QR Code",
+    description: "Convert images into QR codes",
+    icon: ImageIcon,
+    path: "/image-to-qr",
+    color: "bg-pink-50 text-pink-500 border-pink-100"
   }
 ];
 
