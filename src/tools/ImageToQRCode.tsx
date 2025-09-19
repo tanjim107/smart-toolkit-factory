@@ -4,13 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { Upload, Download, ImageIcon, QrCode } from "lucide-react";
+import { Upload, Download, ImageIcon, QrCode, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ImageToQRCode: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
+  const [imageDataForQR, setImageDataForQR] = useState<string>("");
   const [qrSize, setQrSize] = useState<number>(300);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -41,25 +42,57 @@ const ImageToQRCode: React.FC = () => {
 
   const generateQRCodeFromImage = async (imageDataUrl: string) => {
     try {
-      // Convert the image to a more manageable format for QR code
-      // Since full image data URLs are too large for QR codes, we'll create a simple URL instead
+      // Create a canvas to compress the image for QR code compatibility
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const img = new Image();
       
       img.onload = () => {
-        // Resize image to smaller dimensions for QR code compatibility
-        canvas.width = 300;
-        canvas.height = 300;
-        ctx?.drawImage(img, 0, 0, 300, 300);
+        // Compress image to fit QR code data limitations
+        // QR codes can handle up to ~2,900 characters for binary data
+        const maxDimension = 200; // Smaller size for better QR code compatibility
+        let { width, height } = img;
         
-        // Convert to a smaller base64 string
-        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.3);
+        // Calculate aspect ratio and resize
+        if (width > height) {
+          if (width > maxDimension) {
+            height = (height * maxDimension) / width;
+            width = maxDimension;
+          }
+        } else {
+          if (height > maxDimension) {
+            width = (width * maxDimension) / height;
+            height = maxDimension;
+          }
+        }
         
-        // For demo purposes, we'll create a QR code with sample text
-        // In a real application, you'd upload to a service and get a URL
-        const sampleText = `Image uploaded: ${selectedImage?.name || 'unknown'} - Size: ${selectedImage?.size || 0} bytes`;
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(sampleText)}`;
+        canvas.width = width;
+        canvas.height = height;
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        // Convert to compressed base64 data URL
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.4);
+        
+        // Check if data URL is too large for QR code (approximate limit)
+        let finalImageData = compressedDataUrl;
+        if (compressedDataUrl.length > 2500) {
+          // If still too large, compress further
+          const furtherCompressed = canvas.toDataURL('image/jpeg', 0.2);
+          if (furtherCompressed.length > 2500) {
+            toast({
+              title: "Image too large",
+              description: "Image is too large for QR code. Please use a smaller image.",
+              variant: "destructive",
+            });
+            return;
+          }
+          finalImageData = furtherCompressed;
+        }
+        
+        setImageDataForQR(finalImageData);
+        
+        // Generate QR code with the compressed image data
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(finalImageData)}`;
         setQrCodeUrl(qrUrl);
         setImageLoaded(false);
       };
@@ -141,6 +174,31 @@ const ImageToQRCode: React.FC = () => {
     fileInputRef.current?.click();
   };
 
+  const previewImageFromQR = () => {
+    if (!imageDataForQR) {
+      toast({
+        title: "No image data",
+        description: "Please upload an image first",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Open the image data in a new window/tab
+    const newWindow = window.open();
+    if (newWindow) {
+      newWindow.document.write(`
+        <html>
+          <head><title>Image from QR Code</title></head>
+          <body style="margin:0; padding:20px; background:#f0f0f0; display:flex; justify-content:center; align-items:center; min-height:100vh;">
+            <img src="${imageDataForQR}" style="max-width:100%; max-height:100%; object-fit:contain;" alt="Image from QR Code" />
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -150,7 +208,7 @@ const ImageToQRCode: React.FC = () => {
             Upload Image
           </CardTitle>
           <CardDescription>
-            Select an image file to create a QR code with image information. The QR code will contain details about your uploaded image.
+            Select an image file to encode directly into a QR code. When scanned, the QR code will display your uploaded image.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -227,7 +285,7 @@ const ImageToQRCode: React.FC = () => {
         <CardHeader>
           <CardTitle>Generated QR Code</CardTitle>
           <CardDescription>
-            QR code containing information about your uploaded image
+            QR code containing your uploaded image data. Scan to view the original image.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -254,7 +312,15 @@ const ImageToQRCode: React.FC = () => {
                 </div>
               </div>
               
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-3">
+                <Button 
+                  onClick={previewImageFromQR} 
+                  variant="outline" 
+                  className="flex items-center gap-2"
+                >
+                  <Eye className="w-4 h-4" />
+                  Preview Image from QR
+                </Button>
                 <Button onClick={downloadQRCode} className="flex items-center gap-2">
                   <Download className="w-4 h-4" />
                   Download QR Code
@@ -273,9 +339,9 @@ const ImageToQRCode: React.FC = () => {
       <Card className="bg-muted/50">
         <CardContent className="pt-6">
           <div className="text-sm text-muted-foreground space-y-2">
-            <p><strong>Note:</strong> The QR code contains information about your uploaded image (filename and size).</p>
-            <p><strong>Size Limit:</strong> Images must be under 5MB for processing.</p>
-            <p><strong>Usage:</strong> The QR code can be scanned to view image details and information.</p>
+            <p><strong>Note:</strong> The QR code contains the actual image data encoded as base64. Scanning it will display your uploaded image.</p>
+            <p><strong>Size Limit:</strong> Images are automatically compressed to fit QR code limitations. Very large images may not work.</p>
+            <p><strong>Usage:</strong> Scan the QR code with any QR reader to view the original uploaded image directly.</p>
           </div>
         </CardContent>
       </Card>
