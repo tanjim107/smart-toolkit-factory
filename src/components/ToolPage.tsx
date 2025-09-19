@@ -27,7 +27,6 @@ import PasswordGenerator from "@/tools/PasswordGenerator";
 import ImageConverter from "@/tools/ImageConverter";
 import ImageCompressor from "@/tools/ImageCompressor";
 import WordCounter from "@/tools/WordCounter";
-import YouTubeSEOExpert from "@/tools/YouTubeSEOExpert";
 import Calculator from "@/pages/Calculator";
 
 const ToolPage: React.FC = () => {
@@ -97,8 +96,6 @@ const ToolPage: React.FC = () => {
         return <ImageCompressor />;
       case "word-counter":
         return <WordCounter />;
-      case "youtube-seo-expert":
-        return <YouTubeSEOExpert />;
       default:
         return (
           <div className="flex items-center justify-center p-12">

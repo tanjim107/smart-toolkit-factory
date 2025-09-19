@@ -14,8 +14,7 @@ import {
   Key, 
   Images, 
   FileImage, 
-  FileText,
-  Youtube 
+  FileText
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -148,14 +147,6 @@ export const tools: Tool[] = [
     icon: FileText,
     path: "/word-counter",
     color: "bg-lime-50 text-lime-500 border-lime-100"
-  },
-  {
-    id: "youtube-seo-expert",
-    name: "YouTube SEO Expert",
-    description: "Generate SEO-optimized titles, descriptions & tags",
-    icon: Youtube,
-    path: "/youtube-seo-expert",
-    color: "bg-red-50 text-red-500 border-red-100"
   }
 ];
 
