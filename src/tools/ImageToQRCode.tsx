@@ -50,7 +50,7 @@ const ImageToQRCode: React.FC = () => {
       img.onload = () => {
         // Compress image to fit QR code data limitations
         // QR codes can handle up to ~2,900 characters for binary data
-        const maxDimension = 100; // Smaller size for better QR code compatibility
+        const maxDimension = 200; // Smaller size for better QR code compatibility
         let { width, height } = img;
         
         // Calculate aspect ratio and resize
