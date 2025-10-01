@@ -1,0 +1,423 @@
+/* Calculator Tools Theme Styles */
+
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --background: #0f172a;
+    --card-background: rgba(255, 255, 255, 0.05);
+    --text-color: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--background);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.ct-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+.ct-header {
+    background: var(--card-background);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.ct-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ct-logo a, .ct-site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ct-nav .ct-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.ct-nav .ct-menu a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.ct-nav .ct-menu a:hover {
+    color: var(--primary-color);
+}
+
+.ct-mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.ct-mobile-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-color);
+    transition: 0.3s;
+}
+
+/* Main Content */
+.ct-main-content {
+    padding: 3rem 0;
+    min-height: calc(100vh - 200px);
+}
+
+.ct-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.ct-hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ct-hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+/* Tool Container */
+.ct-tool-container {
+    background: var(--card-background);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ct-tool-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.ct-tool-description {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+/* Form Elements */
+.ct-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.ct-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.ct-input, .ct-select, .ct-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.ct-input:focus, .ct-select:focus, .ct-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.ct-textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.ct-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.ct-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+}
+
+.ct-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+}
+
+/* Buttons */
+.ct-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.ct-btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.ct-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ct-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.ct-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Results */
+.ct-results {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.ct-result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ct-result-item:last-child {
+    border-bottom: none;
+}
+
+.ct-result-label {
+    color: var(--text-muted);
+}
+
+.ct-result-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Grid Layouts */
+.ct-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.ct-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.ct-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Tool Cards */
+.ct-tool-card {
+    background: var(--card-background);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+}
+
+.ct-tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.ct-tool-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.ct-tool-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.ct-tool-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Tabs */
+.ct-tabs {
+    margin-bottom: 2rem;
+}
+
+.ct-tab-list {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.ct-tab-button {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.ct-tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.ct-tab-content {
+    display: none;
+}
+
+.ct-tab-content.active {
+    display: block;
+}
+
+/* Footer */
+.ct-footer {
+    background: var(--card-background);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-color);
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+.ct-footer-content {
+    text-align: center;
+}
+
+.ct-footer-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.ct-footer-menu a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.ct-footer-menu a:hover {
+    color: var(--text-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ct-mobile-toggle {
+        display: flex;
+    }
+
+    .ct-nav {
+        display: none;
+    }
+
+    .ct-hero-title {
+        font-size: 2rem;
+    }
+
+    .ct-tool-title {
+        font-size: 1.5rem;
+    }
+
+    .ct-grid-2, .ct-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Utility Classes */
+.ct-text-center {
+    text-align: center;
+}
+
+.ct-mt-1 { margin-top: 0.5rem; }
+.ct-mt-2 { margin-top: 1rem; }
+.ct-mt-3 { margin-top: 1.5rem; }
+.ct-mb-1 { margin-bottom: 0.5rem; }
+.ct-mb-2 { margin-bottom: 1rem; }
+.ct-mb-3 { margin-bottom: 1.5rem; }
+
+.ct-text-success { color: var(--success-color); }
+.ct-text-danger { color: var(--danger-color); }
+.ct-text-warning { color: var(--warning-color); }
