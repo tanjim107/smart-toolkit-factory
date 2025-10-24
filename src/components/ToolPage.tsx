@@ -29,6 +29,7 @@ import ImageCompressor from "@/tools/ImageCompressor";
 import WordCounter from "@/tools/WordCounter";
 import ImageToQRCode from "@/tools/ImageToQRCode";
 import FileCompressor from "@/tools/FileCompressor";
+import VideoToMP3Converter from "@/tools/VideoToMP3Converter";
 import Calculator from "@/pages/Calculator";
 
 const ToolPage: React.FC = () => {
@@ -102,6 +103,8 @@ const ToolPage: React.FC = () => {
         return <ImageToQRCode />;
       case "file-compressor":
         return <FileCompressor />;
+      case "video-to-mp3":
+        return <VideoToMP3Converter />;
       default:
         return (
           <div className="flex items-center justify-center p-12">

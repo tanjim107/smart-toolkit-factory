@@ -83,6 +83,13 @@ function calculator_tools_get_tools() {
             'icon' => '📦',
             'template' => 'template-file-compressor.php'
         ),
+        array(
+            'name' => 'Video to MP3 Converter',
+            'slug' => 'video-to-mp3',
+            'description' => 'Convert video files to MP3 audio',
+            'icon' => '🎵',
+            'template' => 'template-video-to-mp3.php'
+        ),
     );
 }
 

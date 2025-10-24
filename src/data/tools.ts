@@ -16,7 +16,8 @@ import {
   FileImage, 
   FileText,
   ImageIcon,
-  FileArchive
+  FileArchive,
+  Music
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -165,6 +166,14 @@ export const tools: Tool[] = [
     icon: FileArchive,
     path: "/file-compressor",
     color: "bg-slate-50 text-slate-500 border-slate-100"
+  },
+  {
+    id: "video-to-mp3",
+    name: "Video to MP3",
+    description: "Convert video files to MP3 audio",
+    icon: Music,
+    path: "/video-to-mp3",
+    color: "bg-indigo-50 text-indigo-500 border-indigo-100"
   }
 ];
 

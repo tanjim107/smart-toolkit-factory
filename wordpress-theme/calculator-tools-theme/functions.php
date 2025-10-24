@@ -51,6 +51,7 @@ function calculator_tools_page_templates($templates) {
     $templates['template-date-difference.php'] = 'Date Difference Calculator';
     $templates['template-area-calculator.php'] = 'Area Calculator';
     $templates['template-file-compressor.php'] = 'File Compressor';
+    $templates['template-video-to-mp3.php'] = 'Video to MP3 Converter';
     return $templates;
 }
 add_filter('theme_page_templates', 'calculator_tools_page_templates');
