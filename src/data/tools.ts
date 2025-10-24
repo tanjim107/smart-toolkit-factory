@@ -15,7 +15,8 @@ import {
   Images, 
   FileImage, 
   FileText,
-  ImageIcon
+  ImageIcon,
+  FileArchive
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -156,6 +157,14 @@ export const tools: Tool[] = [
     icon: ImageIcon,
     path: "/image-to-qr",
     color: "bg-pink-50 text-pink-500 border-pink-100"
+  },
+  {
+    id: "file-compressor",
+    name: "File Compressor",
+    description: "Compress files to save storage space",
+    icon: FileArchive,
+    path: "/file-compressor",
+    color: "bg-slate-50 text-slate-500 border-slate-100"
   }
 ];
 

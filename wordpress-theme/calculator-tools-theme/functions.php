@@ -50,6 +50,7 @@ function calculator_tools_page_templates($templates) {
     $templates['template-profit-loss.php'] = 'Profit Loss Calculator';
     $templates['template-date-difference.php'] = 'Date Difference Calculator';
     $templates['template-area-calculator.php'] = 'Area Calculator';
+    $templates['template-file-compressor.php'] = 'File Compressor';
     return $templates;
 }
 add_filter('theme_page_templates', 'calculator_tools_page_templates');

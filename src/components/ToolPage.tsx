@@ -28,6 +28,7 @@ import ImageConverter from "@/tools/ImageConverter";
 import ImageCompressor from "@/tools/ImageCompressor";
 import WordCounter from "@/tools/WordCounter";
 import ImageToQRCode from "@/tools/ImageToQRCode";
+import FileCompressor from "@/tools/FileCompressor";
 import Calculator from "@/pages/Calculator";
 
 const ToolPage: React.FC = () => {
@@ -99,6 +100,8 @@ const ToolPage: React.FC = () => {
         return <WordCounter />;
       case "image-to-qr":
         return <ImageToQRCode />;
+      case "file-compressor":
+        return <FileCompressor />;
       default:
         return (
           <div className="flex items-center justify-center p-12">

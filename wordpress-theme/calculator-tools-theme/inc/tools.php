@@ -76,6 +76,13 @@ function calculator_tools_get_tools() {
             'icon' => '📐',
             'template' => 'template-area-calculator.php'
         ),
+        array(
+            'name' => 'File Compressor',
+            'slug' => 'file-compressor',
+            'description' => 'Compress files to save storage space',
+            'icon' => '📦',
+            'template' => 'template-file-compressor.php'
+        ),
     );
 }
 
