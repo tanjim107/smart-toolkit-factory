@@ -30,6 +30,7 @@ import WordCounter from "@/tools/WordCounter";
 import ImageToQRCode from "@/tools/ImageToQRCode";
 import FileCompressor from "@/tools/FileCompressor";
 import VideoToMP3Converter from "@/tools/VideoToMP3Converter";
+import QRBarcodeScanner from "@/tools/QRBarcodeScanner";
 import Calculator from "@/pages/Calculator";
 
 const ToolPage: React.FC = () => {
@@ -105,6 +106,8 @@ const ToolPage: React.FC = () => {
         return <FileCompressor />;
       case "video-to-mp3":
         return <VideoToMP3Converter />;
+      case "qr-barcode-scanner":
+        return <QRBarcodeScanner />;
       default:
         return (
           <div className="flex items-center justify-center p-12">

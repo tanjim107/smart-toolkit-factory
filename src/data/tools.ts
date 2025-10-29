@@ -17,7 +17,8 @@ import {
   FileText,
   ImageIcon,
   FileArchive,
-  Music
+  Music,
+  Scan
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -174,6 +175,14 @@ export const tools: Tool[] = [
     icon: Music,
     path: "/video-to-mp3",
     color: "bg-indigo-50 text-indigo-500 border-indigo-100"
+  },
+  {
+    id: "qr-barcode-scanner",
+    name: "QR & Barcode Scanner",
+    description: "Scan QR codes and barcodes with camera",
+    icon: Scan,
+    path: "/qr-barcode-scanner",
+    color: "bg-emerald-50 text-emerald-500 border-emerald-100"
   }
 ];
 
