@@ -24,41 +24,45 @@ const QRBarcodeScanner = () => {
       scannerRef.current.clear().catch(console.error);
     }
 
-    const scanner = new Html5QrcodeScanner(
-      scannerDivId,
-      {
-        fps: 10,
-        qrbox: { width: 250, height: 250 },
-        formatsToSupport: [
-          Html5QrcodeSupportedFormats.QR_CODE,
-          Html5QrcodeSupportedFormats.EAN_13,
-          Html5QrcodeSupportedFormats.EAN_8,
-          Html5QrcodeSupportedFormats.CODE_128,
-          Html5QrcodeSupportedFormats.CODE_39,
-          Html5QrcodeSupportedFormats.UPC_A,
-          Html5QrcodeSupportedFormats.UPC_E,
-        ],
-      },
-      false
-    );
-
-    scanner.render(
-      (decodedText) => {
-        setScanResult(decodedText);
-        setIsScanning(false);
-        scanner.clear().catch(console.error);
-        toast({
-          title: "Scan Successful",
-          description: "Code detected and decoded",
-        });
-      },
-      (errorMessage) => {
-        // Silent fail for continuous scanning
-      }
-    );
-
-    scannerRef.current = scanner;
     setIsScanning(true);
+    
+    // Delay initialization to ensure DOM element is rendered
+    setTimeout(() => {
+      const scanner = new Html5QrcodeScanner(
+        scannerDivId,
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 250 },
+          formatsToSupport: [
+            Html5QrcodeSupportedFormats.QR_CODE,
+            Html5QrcodeSupportedFormats.EAN_13,
+            Html5QrcodeSupportedFormats.EAN_8,
+            Html5QrcodeSupportedFormats.CODE_128,
+            Html5QrcodeSupportedFormats.CODE_39,
+            Html5QrcodeSupportedFormats.UPC_A,
+            Html5QrcodeSupportedFormats.UPC_E,
+          ],
+        },
+        false
+      );
+
+      scanner.render(
+        (decodedText) => {
+          setScanResult(decodedText);
+          setIsScanning(false);
+          scanner.clear().catch(console.error);
+          toast({
+            title: "Scan Successful",
+            description: "Code detected and decoded",
+          });
+        },
+        (errorMessage) => {
+          // Silent fail for continuous scanning
+        }
+      );
+
+      scannerRef.current = scanner;
+    }, 100);
   };
 
   const stopScanning = () => {
