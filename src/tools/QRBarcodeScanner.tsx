@@ -42,8 +42,9 @@ const QRBarcodeScanner = () => {
             Html5QrcodeSupportedFormats.UPC_A,
             Html5QrcodeSupportedFormats.UPC_E,
           ],
+          showTorchButtonIfSupported: true,
         },
-        false
+        true
       );
 
       scanner.render(
