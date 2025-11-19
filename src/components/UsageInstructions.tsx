@@ -526,6 +526,25 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
         </Card>
       </div>
 
+      {/* 300x250 Banner Ad */}
+      <div className="flex justify-center my-4">
+        <div 
+          style={{ textAlign: 'center', margin: '16px 0' }}
+          dangerouslySetInnerHTML={{
+            __html: `<script type="text/javascript">
+    atOptions = {
+        'key' : '03b1f985f11c01d3739b6616d0f7ac67',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+    };
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/03b1f985f11c01d3739b6616d0f7ac67/invoke.js"></script>`
+          }}
+        />
+      </div>
+
       <Card className="bg-primary/5 border-primary/20">
         <CardContent className="pt-6">
           <div className="text-center">
