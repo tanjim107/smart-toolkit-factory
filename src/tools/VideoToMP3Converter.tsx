@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { Upload, Download, Music } from "lucide-react";
 import { toast } from "sonner";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
@@ -13,6 +15,7 @@ const VideoToMP3Converter = () => {
   const [convertedAudio, setConvertedAudio] = useState<string | null>(null);
   const [isFFmpegLoaded, setIsFFmpegLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [bitrate, setBitrate] = useState<string>("192k");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const ffmpegRef = useRef(new FFmpeg());
 
@@ -74,8 +77,8 @@ const VideoToMP3Converter = () => {
       // Write input file
       await ffmpeg.writeFile("input.video", await fetchFile(selectedFile));
       
-      // Convert to MP3
-      await ffmpeg.exec(["-i", "input.video", "-q:a", "0", "-map", "a", "output.mp3"]);
+      // Convert to MP3 with selected bitrate
+      await ffmpeg.exec(["-i", "input.video", "-b:a", bitrate, "-map", "a", "output.mp3"]);
       
       // Read output file
       const data = await ffmpeg.readFile("output.mp3");
@@ -150,6 +153,30 @@ const VideoToMP3Converter = () => {
 
           {selectedFile && !convertedAudio && (
             <>
+              <div className="space-y-3">
+                <Label className="text-sm font-medium">Audio Quality</Label>
+                <RadioGroup value={bitrate} onValueChange={setBitrate} className="flex gap-4">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="128k" id="128k" />
+                    <Label htmlFor="128k" className="font-normal cursor-pointer">
+                      128 kbps <span className="text-muted-foreground">(Good)</span>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="192k" id="192k" />
+                    <Label htmlFor="192k" className="font-normal cursor-pointer">
+                      192 kbps <span className="text-muted-foreground">(Better)</span>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="320k" id="320k" />
+                    <Label htmlFor="320k" className="font-normal cursor-pointer">
+                      320 kbps <span className="text-muted-foreground">(Best)</span>
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
               {isConverting && (
                 <div className="space-y-2">
                   <Progress value={progress} className="w-full" />
@@ -197,7 +224,8 @@ const VideoToMP3Converter = () => {
         <h3 className="font-semibold mb-2">Features</h3>
         <ul className="text-sm text-muted-foreground space-y-1">
           <li>• Extract audio from video files</li>
-          <li>• Convert to MP3 format</li>
+          <li>• Convert to MP3 format with adjustable quality</li>
+          <li>• Choose between 128kbps, 192kbps, or 320kbps</li>
           <li>• Maximum file size: 100MB</li>
           <li>• All processing happens in your browser</li>
         </ul>
