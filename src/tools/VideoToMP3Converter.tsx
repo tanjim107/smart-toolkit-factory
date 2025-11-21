@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { Upload, Download, Music } from "lucide-react";
 import { toast } from "sonner";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
@@ -11,12 +12,19 @@ const VideoToMP3Converter = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [convertedAudio, setConvertedAudio] = useState<string | null>(null);
   const [isFFmpegLoaded, setIsFFmpegLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const ffmpegRef = useRef(new FFmpeg());
 
   useEffect(() => {
     const loadFFmpeg = async () => {
       const ffmpeg = ffmpegRef.current;
+      
+      // Set up progress listener
+      ffmpeg.on('progress', ({ progress: prog }) => {
+        setProgress(Math.round(prog * 100));
+      });
+      
       try {
         const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
         await ffmpeg.load({
@@ -57,6 +65,7 @@ const VideoToMP3Converter = () => {
     if (!selectedFile || !isFFmpegLoaded) return;
 
     setIsConverting(true);
+    setProgress(0);
     toast.info("Converting video to MP3...");
 
     try {
@@ -74,10 +83,12 @@ const VideoToMP3Converter = () => {
       const url = URL.createObjectURL(blob);
       
       setConvertedAudio(url);
+      setProgress(100);
       toast.success("Conversion complete!");
     } catch (error) {
       console.error("Conversion error:", error);
       toast.error("Failed to convert video. Please try again.");
+      setProgress(0);
     } finally {
       setIsConverting(false);
     }
@@ -99,6 +110,7 @@ const VideoToMP3Converter = () => {
     setSelectedFile(null);
     setConvertedAudio(null);
     setIsConverting(false);
+    setProgress(0);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -137,13 +149,23 @@ const VideoToMP3Converter = () => {
           </div>
 
           {selectedFile && !convertedAudio && (
-            <Button
-              onClick={convertToMP3}
-              disabled={isConverting || !isFFmpegLoaded}
-              className="w-full"
-            >
-              {!isFFmpegLoaded ? "Loading converter..." : isConverting ? "Converting..." : "Convert to MP3"}
-            </Button>
+            <>
+              {isConverting && (
+                <div className="space-y-2">
+                  <Progress value={progress} className="w-full" />
+                  <p className="text-sm text-center text-muted-foreground">
+                    Converting... {progress}%
+                  </p>
+                </div>
+              )}
+              <Button
+                onClick={convertToMP3}
+                disabled={isConverting || !isFFmpegLoaded}
+                className="w-full"
+              >
+                {!isFFmpegLoaded ? "Loading converter..." : isConverting ? "Converting..." : "Convert to MP3"}
+              </Button>
+            </>
           )}
 
           {convertedAudio && (
