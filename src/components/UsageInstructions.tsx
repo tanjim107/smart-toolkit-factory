@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Tool } from '@/data/tools';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,31 @@ interface UsageInstructionsProps {
 }
 
 const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
+  const bannerAdRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (bannerAdRef.current && !bannerAdRef.current.hasChildNodes()) {
+      const script1 = document.createElement('script');
+      script1.type = 'text/javascript';
+      script1.text = `
+        atOptions = {
+          'key' : '03b1f985f11c01d3739b6616d0f7ac67',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      `;
+      
+      const script2 = document.createElement('script');
+      script2.type = 'text/javascript';
+      script2.src = '//www.highperformanceformat.com/03b1f985f11c01d3739b6616d0f7ac67/invoke.js';
+      
+      bannerAdRef.current.appendChild(script1);
+      bannerAdRef.current.appendChild(script2);
+    }
+  }, []);
+
   const getInstructions = (toolId: string) => {
     const instructionsMap: Record<string, {
       steps: string[];
@@ -529,19 +554,8 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ tool }) => {
       {/* 300x250 Banner Ad */}
       <div className="flex justify-center my-4">
         <div 
+          ref={bannerAdRef}
           style={{ textAlign: 'center', margin: '16px 0' }}
-          dangerouslySetInnerHTML={{
-            __html: `<script type="text/javascript">
-    atOptions = {
-        'key' : '03b1f985f11c01d3739b6616d0f7ac67',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-    };
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/03b1f985f11c01d3739b6616d0f7ac67/invoke.js"></script>`
-          }}
         />
       </div>
 
