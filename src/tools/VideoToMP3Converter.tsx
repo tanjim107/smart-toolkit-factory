@@ -1,14 +1,36 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Upload, Download, Music } from "lucide-react";
 import { toast } from "sonner";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { fetchFile, toBlobURL } from "@ffmpeg/util";
 
 const VideoToMP3Converter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isConverting, setIsConverting] = useState(false);
   const [convertedAudio, setConvertedAudio] = useState<string | null>(null);
+  const [isFFmpegLoaded, setIsFFmpegLoaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const ffmpegRef = useRef(new FFmpeg());
+
+  useEffect(() => {
+    const loadFFmpeg = async () => {
+      const ffmpeg = ffmpegRef.current;
+      try {
+        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+        await ffmpeg.load({
+          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+        });
+        setIsFFmpegLoaded(true);
+      } catch (error) {
+        console.error("Failed to load FFmpeg:", error);
+        toast.error("Failed to initialize converter");
+      }
+    };
+    loadFFmpeg();
+  }, []);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -32,55 +54,31 @@ const VideoToMP3Converter = () => {
   };
 
   const convertToMP3 = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile || !isFFmpegLoaded) return;
 
     setIsConverting(true);
     toast.info("Converting video to MP3...");
 
     try {
-      // Create a video element to extract audio
-      const video = document.createElement("video");
-      video.src = URL.createObjectURL(selectedFile);
-
-      await new Promise((resolve) => {
-        video.onloadedmetadata = resolve;
-      });
-
-      // Create audio context
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const source = audioContext.createMediaElementSource(video);
-      const destination = audioContext.createMediaStreamDestination();
-      source.connect(destination);
-
-      // Record the audio
-      const mediaRecorder = new MediaRecorder(destination.stream);
-      const chunks: BlobPart[] = [];
-
-      mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) {
-          chunks.push(e.data);
-        }
-      };
-
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: "audio/mp3" });
-        const url = URL.createObjectURL(blob);
-        setConvertedAudio(url);
-        setIsConverting(false);
-        toast.success("Conversion complete!");
-      };
-
-      mediaRecorder.start();
-      video.play();
-
-      // Stop recording when video ends
-      video.onended = () => {
-        mediaRecorder.stop();
-        audioContext.close();
-      };
+      const ffmpeg = ffmpegRef.current;
+      
+      // Write input file
+      await ffmpeg.writeFile("input.video", await fetchFile(selectedFile));
+      
+      // Convert to MP3
+      await ffmpeg.exec(["-i", "input.video", "-q:a", "0", "-map", "a", "output.mp3"]);
+      
+      // Read output file
+      const data = await ffmpeg.readFile("output.mp3");
+      const blob = new Blob([new Uint8Array(data as Uint8Array)], { type: "audio/mp3" });
+      const url = URL.createObjectURL(blob);
+      
+      setConvertedAudio(url);
+      toast.success("Conversion complete!");
     } catch (error) {
       console.error("Conversion error:", error);
       toast.error("Failed to convert video. Please try again.");
+    } finally {
       setIsConverting(false);
     }
   };
@@ -141,10 +139,10 @@ const VideoToMP3Converter = () => {
           {selectedFile && !convertedAudio && (
             <Button
               onClick={convertToMP3}
-              disabled={isConverting}
+              disabled={isConverting || !isFFmpegLoaded}
               className="w-full"
             >
-              {isConverting ? "Converting..." : "Convert to MP3"}
+              {!isFFmpegLoaded ? "Loading converter..." : isConverting ? "Converting..." : "Convert to MP3"}
             </Button>
           )}
 
