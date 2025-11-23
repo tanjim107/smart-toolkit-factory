@@ -29,15 +29,16 @@ const VideoToMP3Converter = () => {
       });
       
       try {
-        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
         await ffmpeg.load({
           coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
           wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
         });
         setIsFFmpegLoaded(true);
+        console.log("FFmpeg loaded successfully");
       } catch (error) {
         console.error("Failed to load FFmpeg:", error);
-        toast.error("Failed to initialize converter");
+        toast.error("Failed to initialize converter. Please refresh the page.");
       }
     };
     loadFFmpeg();
@@ -65,7 +66,10 @@ const VideoToMP3Converter = () => {
   };
 
   const convertToMP3 = async () => {
-    if (!selectedFile || !isFFmpegLoaded) return;
+    if (!selectedFile || !isFFmpegLoaded) {
+      toast.error("Converter not ready. Please wait or refresh.");
+      return;
+    }
 
     setIsConverting(true);
     setProgress(0);
@@ -74,23 +78,38 @@ const VideoToMP3Converter = () => {
     try {
       const ffmpeg = ffmpegRef.current;
       
+      console.log("Writing input file...");
       // Write input file
       await ffmpeg.writeFile("input.video", await fetchFile(selectedFile));
       
-      // Convert to MP3 with selected bitrate
-      await ffmpeg.exec(["-i", "input.video", "-b:a", bitrate, "-map", "a", "output.mp3"]);
+      console.log("Starting conversion with bitrate:", bitrate);
+      // Convert to MP3 with optimized settings for speed
+      await ffmpeg.exec([
+        "-i", "input.video",
+        "-vn", // No video
+        "-acodec", "libmp3lame", // MP3 codec
+        "-b:a", bitrate, // Bitrate
+        "-ar", "44100", // Sample rate
+        "-ac", "2", // Stereo
+        "output.mp3"
+      ]);
       
+      console.log("Reading output file...");
       // Read output file
       const data = await ffmpeg.readFile("output.mp3");
-      const blob = new Blob([new Uint8Array(data as Uint8Array)], { type: "audio/mp3" });
+      const blob = new Blob([new Uint8Array(data as any)], { type: "audio/mpeg" });
       const url = URL.createObjectURL(blob);
+      
+      // Clean up
+      await ffmpeg.deleteFile("input.video");
+      await ffmpeg.deleteFile("output.mp3");
       
       setConvertedAudio(url);
       setProgress(100);
       toast.success("Conversion complete!");
     } catch (error) {
       console.error("Conversion error:", error);
-      toast.error("Failed to convert video. Please try again.");
+      toast.error("Failed to convert video. Please try a different file.");
       setProgress(0);
     } finally {
       setIsConverting(false);
